@@ -94,6 +94,17 @@
     font-family:'Bricolage Grotesque', sans-serif; font-weight: 700; letter-spacing: -0.01em;
     font-size: 20px; color: var(--text); margin: 44px 0 14px 0;
   }
+  .run-types-details{ margin: 44px 0 10px 0; }
+  .run-types-details > summary{
+    cursor:pointer; user-select:none; list-style:none;
+    display:flex; align-items:center; gap:8px;
+    font-family:'Bricolage Grotesque', sans-serif; font-weight: 700; letter-spacing: -0.01em;
+    font-size: 20px; color: var(--text);
+  }
+  .run-types-details > summary::-webkit-details-marker{ display:none; }
+  .run-types-details > summary .chev{ transition: transform .15s ease; font-size: 15px; }
+  .run-types-details[open] > summary .chev{ transform: rotate(90deg); }
+  .run-types-details .run-types{ margin-top: 16px; }
   .run-types{
     display:grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 10px; margin-bottom: 10px;
@@ -3050,8 +3061,9 @@
       </div>
     </details>
       </div>
-      <h3 class="run-types-title">Understanding the run types</h3>
-      <div class="run-types">
+      <details class="run-types-details">
+        <summary class="run-types-title">Understanding the run types<span class="chev">&#9656;</span></summary>
+        <div class="run-types">
       <div class="run-type-card">
         <div class="rtc-head"><span class="rtc-name">Easy</span><span class="rtc-mult">×1 pts/km</span></div>
         <div class="rtc-why">Aerobic base + recovery</div>
@@ -3082,7 +3094,8 @@
         <div class="rtc-why">The one it's all for</div>
         <div class="rtc-how">Run it at the pace you've been practising in your tempo and race-pace sessions. Stick to the fuelling and hydration you rehearsed on your long runs — race day is not the day to try something new.</div>
       </div>
-      </div>
+        </div>
+      </details>
     </section>
 
   <footer>
