@@ -88,29 +88,28 @@
   .km-sub{ margin-top:8px; font-size: 12px; color: var(--text-faint); }
 
   .activities-card{
-    margin-top: 18px; background: var(--bg-card); border: 1px solid var(--line);
+    margin-top: 0; background: var(--bg-card); border: 1px solid var(--line);
     border-radius: 24px; padding: 22px; box-shadow: 0 8px 24px rgba(0,0,0,0.25);
   }
   .activity-sender{ display:flex; gap:8px; margin-bottom:12px; }
-  .activity-sender-btn{ flex:1; padding:8px 10px; border-radius:10px; border:1.5px solid var(--line); background:rgba(0,0,0,0.15); color:var(--text-dim); font:700 13px 'Inter',sans-serif; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:7px; }
-  .activity-sender-btn.active.sender-a{ border-color:var(--rust); color:var(--ink); background:var(--rust); }
-  .activity-sender-btn.active.sender-b{ border-color:var(--teal); color:var(--ink); background:var(--teal); }
+  .activity-sender-btn{ flex:1; padding:8px 10px; border-radius:10px; border:1.5px solid var(--line); background:rgba(0,0,0,0.15); color:var(--text-dim); font-family:'Inter',sans-serif; font-size:13px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:7px; }
+  .activity-sender-btn.active.sender-a{ border-color:var(--rust); color:var(--ink); background:var(--rust); font-weight:800; }
+  .activity-sender-btn.active.sender-b{ border-color:var(--teal); color:var(--ink); background:var(--teal); font-weight:800; }
+  .activity-sender-btn .name-dot{ border:1.5px solid var(--ink); }
   .activity-feed{ margin-top:16px; }
   .activity-feed-person + .activity-feed-person{ margin-top:14px; }
   .activity-feed-person-title{ display:flex; align-items:center; gap:6px; margin-bottom:4px; color:var(--text-dim); font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; }
   .activity-rate{ margin-top:10px; color:var(--text-faint); font-size:11px; line-height:1.5; text-align:center; }
   .activity-add-row{ display:grid; grid-template-columns:minmax(120px, 1fr) 62px auto auto; gap:6px; }
-  .activity-row{ display:grid; grid-template-columns:16px minmax(90px, 1fr) 62px auto auto; align-items:center; gap:6px; padding:8px 0; border-top:1px solid var(--line); }
-  .activity-check{ width:16px; height:16px; accent-color:var(--rust); }
   .activity-select{ min-width:0; width:100%; border:1px solid var(--line); border-radius:7px; background:var(--bg-raised); color:var(--text); font:12px 'Inter',sans-serif; padding:5px 4px; }
   .activity-input{ min-width:0; width:62px; border:1px solid var(--line); border-radius:7px; background:var(--bg-raised); color:var(--text); font:12px 'Inter',sans-serif; padding:5px 4px; text-align:center; }
   .activity-unit{ color:var(--text-faint); font-size:11px; }
-  .activity-add-btn,.activity-remove{ border:1px solid var(--line); border-radius:7px; background:none; color:var(--text-dim); cursor:pointer; font:600 11px 'Inter',sans-serif; padding:5px 8px; }
+  .activity-add-btn{ background:linear-gradient(90deg, var(--rust), var(--gold)); color:var(--ink); border:none; border-radius:10px; cursor:pointer; font:700 13px 'Inter',sans-serif; padding:9px 18px; }
+  .activity-remove{ border:1px solid var(--line); border-radius:8px; background:none; color:var(--text-faint); cursor:pointer; font:12px 'Inter',sans-serif; padding:6px 12px; }
   .activity-add-btn:hover,.activity-remove:hover{ color:var(--text); border-color:var(--text-faint); }
   .activity-list{ margin-top:10px; }
-  @media (max-width: 560px){
-    .activity-row{ grid-template-columns:16px minmax(80px, 1fr) 56px auto auto; }
-  }
+  .activity-msg-controls{ display:flex; align-items:center; gap:8px; }
+  .activity-msg-label{ flex:1; font-size:14px; color:var(--text); line-height:1.5; }
 
   .phase-title{ font-family:'Bricolage Grotesque', sans-serif; font-weight: 700; letter-spacing: -0.01em; font-size: 30px; margin: 30px 0; scroll-margin-top: 20px; text-align: center; }
   .phase-blurb{ color: var(--text-dim); font-size: 14px; line-height: 1.55; margin-bottom: 22px; max-width: 62ch; text-align: center; }
@@ -3095,14 +3094,7 @@
       </div>
       <div class="activity-add-row"><select class="activity-select" id="activityType"><option value="hiking">Hiking</option><option value="cycling">Cycling</option><option value="swimming">Swimming</option><option value="strength">Strength training</option><option value="workout">Workout</option></select><input type="number" class="activity-input" id="activityMinutes" min="1" step="1" placeholder="km"><span class="activity-unit" id="activityUnit">km</span><button type="button" class="activity-add-btn" id="addActivity">Add</button></div>
       <div class="activity-feed">
-        <div class="activity-feed-person">
-          <div class="activity-feed-person-title"><span class="name-dot dot-a"></span><span class="person-name-a">Beatrix</span></div>
-          <div class="activity-list" id="activityListA"></div>
-        </div>
-        <div class="activity-feed-person">
-          <div class="activity-feed-person-title"><span class="name-dot dot-b"></span><span class="person-name-b">Julian</span></div>
-          <div class="activity-list" id="activityListB"></div>
-        </div>
+        <div class="activity-list" id="activityList"></div>
       </div>
       <div class="activity-rate">Points: hiking 0.5/km · cycling 0.4/30 min · swimming 0.6/30 min · strength 0.5/30 min · workout 0.6/30 min</div>
     </div>
@@ -3176,6 +3168,16 @@ function activityOptions(selected){
   ].map(([value, label]) => `<option value="${value}"${value === selected ? " selected" : ""}>${label}</option>`).join("");
 }
 
+function activityLabel(activity){
+  return {
+    hiking: "Hiking",
+    cycling: "Cycling",
+    swimming: "Swimming",
+    strength: "Strength training",
+    workout: "Workout"
+  }[activity] || "Activity";
+}
+
 function updateActivityAddUnit(person){
   const type = document.getElementById("activityType");
   const input = document.getElementById("activityMinutes");
@@ -3192,34 +3194,39 @@ function setActivityPerson(person){
   updateActivityAddUnit();
 }
 
-function updateSavedActivityUnit(row){
-  const select = row.querySelector(".saved-activity-select");
-  const unit = row.querySelector(".activity-unit");
-  if(select && unit) unit.textContent = ACTIVITY_RATES[select.value].unit;
-}
-
-function renderActivityList(person){
-  const list = document.getElementById("activityList" + person.toUpperCase());
+function renderActivityList(){
+  const list = document.getElementById("activityList");
   if(!list) return;
-  list.innerHTML = activityEntries[person].map(entry => `
-    <div class="activity-row" data-id="${entry.id}">
-      <input type="checkbox" class="saved-activity-check-${person}" data-id="${entry.id}"${entry.checked ? " checked" : ""}>
-      <select class="activity-select saved-activity-select" data-id="${entry.id}">${activityOptions(entry.activity)}</select>
+  const entries = [
+    ...activityEntries.a.map(entry => ({ ...entry, person: "a" })),
+    ...activityEntries.b.map(entry => ({ ...entry, person: "b" }))
+  ].sort((a, b) => (b.ts || 0) - (a.ts || 0)).slice(0, 5);
+  list.innerHTML = entries.map(entry => `
+    <div class="board-msg activity-msg sender-${entry.person}" data-id="${entry.id}" data-person="${entry.person}" data-activity="${entry.activity}">
+      <div class="board-msg-head">
+        <span class="name-dot ${entry.person === "b" ? "dot-b" : "dot-a"} "></span>
+        <span class="board-msg-name">${escapeHtml(document.querySelector(".person-name-" + entry.person).textContent)}</span>
+        <span class="board-msg-time">${formatTime(entry.ts)}</span>
+        <button type="button" class="board-msg-del activity-remove" data-id="${entry.id}" title="Remove">×</button>
+      </div>
+      <div class="activity-msg-controls">
+        <span class="activity-msg-label">${activityLabel(entry.activity)}</span>
       <input type="number" class="activity-input saved-activity-input" data-id="${entry.id}" min="1" step="1" value="${entry.minutes}" aria-label="Minutes">
       <span class="activity-unit">${ACTIVITY_RATES[entry.activity].unit}</span>
-      <button type="button" class="activity-remove" data-id="${entry.id}">Remove</button>
+      </div>
     </div>`).join("");
 }
 
-function syncActivityState(person){
-  const list = document.getElementById("activityList" + person.toUpperCase());
+function syncActivityState(){
+  const list = document.getElementById("activityList");
   if(!list) return;
-  activityEntries[person] = Array.from(list.querySelectorAll(".activity-row")).map(row => ({
-    id: row.dataset.id,
-    activity: row.querySelector(".saved-activity-select").value,
-    minutes: row.querySelector(".saved-activity-input").value,
-    checked: row.querySelector(".saved-activity-check-" + person).checked
-  }));
+  list.querySelectorAll(".activity-msg").forEach(row => {
+    const existing = activityEntries[row.dataset.person].find(entry => entry.id === row.dataset.id);
+    if(existing){
+      existing.minutes = row.querySelector(".saved-activity-input").value;
+      existing.activity = row.dataset.activity;
+    }
+  });
 }
 
 function addActivity(person){
@@ -3232,10 +3239,11 @@ function addActivity(person){
     id: "activity-" + person + "-" + Date.now() + "-" + (++activityIdCounter),
     activity: type.value,
     minutes: value,
-    checked: true
+    checked: true,
+    ts: Date.now()
   });
   minutes.value = "";
-  renderActivityList(person);
+  renderActivityList();
   recomputeAndSave();
 }
 
@@ -3248,7 +3256,8 @@ function migrateActivities(data){
           id: entry.id || "activity-" + person + "-" + (++activityIdCounter),
           activity: ACTIVITY_RATES[entry.activity] ? entry.activity : "hiking",
           minutes: entry.minutes || entry.value || "",
-          checked: entry.checked !== false
+          checked: entry.checked !== false,
+          ts: entry.ts || Date.now()
         }));
       } else {
         migrated[person] = Object.entries(data.activities)
@@ -3257,7 +3266,8 @@ function migrateActivities(data){
             id: "activity-" + person + "-" + (++activityIdCounter),
             activity: ACTIVITY_RATES[entry.activity] ? entry.activity : id.split("-").pop(),
             minutes: entry.value || "",
-            checked: !!entry.checked
+            checked: !!entry.checked,
+            ts: entry.ts || Date.now()
           }))
           .filter(entry => ACTIVITY_RATES[entry.activity]);
       }
@@ -3308,11 +3318,9 @@ function recompute(){
 
   function activityPoints(person){
     let points = 0;
-    document.querySelectorAll(".saved-activity-check-" + person).forEach(check => {
-      if(!check.checked) return;
-      const row = check.closest(".activity-row");
-      const activity = row.querySelector(".saved-activity-select").value;
-      const amount = parseFloat(row.querySelector(".saved-activity-input").value) || 0;
+    activityEntries[person].forEach(entry => {
+      const activity = entry.activity;
+      const amount = parseFloat(entry.minutes) || 0;
       if(!ACTIVITY_RATES[activity]) return;
       points += activity === "hiking" ? amount * ACTIVITY_RATES[activity].rate : (amount / 30) * ACTIVITY_RATES[activity].rate;
     });
@@ -3472,8 +3480,7 @@ try{
 }
 
 function collectData(){
-  syncActivityState("a");
-  syncActivityState("b");
+  syncActivityState();
   const data = {
     nameA: document.getElementById("nameA").value,
     nameB: document.getElementById("nameB").value,
@@ -3501,8 +3508,7 @@ function applyData(data){
     if(data.goals && data.goals[i.dataset.id] !== undefined) i.value = data.goals[i.dataset.id];
   });
   activityEntries = migrateActivities(data);
-  renderActivityList("a");
-  renderActivityList("b");
+  renderActivityList();
 }
 
 function saveLocal(){
@@ -3539,20 +3545,15 @@ document.getElementById("activitySenderA").addEventListener("click", () => setAc
 document.getElementById("activitySenderB").addEventListener("click", () => setActivityPerson("b"));
 document.getElementById("activityType").addEventListener("change", updateActivityAddUnit);
 setActivityPerson("a");
-["a", "b"].forEach(person => {
-  const list = document.getElementById("activityList" + person.toUpperCase());
-  list.addEventListener("input", () => { syncActivityState(person); recomputeAndSave(); });
-  list.addEventListener("change", e => {
-    if(e.target.classList.contains("saved-activity-select")) updateSavedActivityUnit(e.target.closest(".activity-row"));
-    syncActivityState(person);
-    recomputeAndSave();
-  });
-  list.addEventListener("click", e => {
-    if(!e.target.classList.contains("activity-remove")) return;
-    activityEntries[person] = activityEntries[person].filter(entry => entry.id !== e.target.dataset.id);
-    renderActivityList(person);
-    recomputeAndSave();
-  });
+const activityList = document.getElementById("activityList");
+activityList.addEventListener("input", () => { syncActivityState(); recomputeAndSave(); });
+activityList.addEventListener("change", () => { syncActivityState(); recomputeAndSave(); });
+activityList.addEventListener("click", e => {
+  if(!e.target.classList.contains("activity-remove")) return;
+  const person = e.target.closest(".activity-msg").dataset.person;
+  activityEntries[person] = activityEntries[person].filter(entry => entry.id !== e.target.dataset.id);
+  renderActivityList();
+  recomputeAndSave();
 });
 document.getElementById("nameA").addEventListener("input", recomputeAndSave);
 document.getElementById("nameB").addEventListener("input", recomputeAndSave);
@@ -3561,8 +3562,7 @@ document.getElementById("resetBtn").addEventListener("click", () => {
   if(!confirm("Reset all progress? This can't be undone.")) return;
   document.querySelectorAll(".run-check").forEach(c => { c.checked = false; });
   activityEntries = { a: [], b: [] };
-  renderActivityList("a");
-  renderActivityList("b");
+  renderActivityList();
   recompute();
   saveLocal();
   saveRemote();
