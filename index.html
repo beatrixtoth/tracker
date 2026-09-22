@@ -258,6 +258,34 @@
   .board-send-btn:disabled{ opacity:.5; cursor:default; }
   .board-status{ font-size: 12.5px; color: var(--gold); margin-top: 4px; }
 
+  /* Auth gate */
+  .wrap{ display:none; }
+  .auth-gate{
+    position:fixed; inset:0; background: var(--bg); z-index:1000;
+    display:flex; align-items:center; justify-content:center; padding:24px;
+  }
+  .auth-box{
+    max-width:340px; width:100%; background: var(--bg-card); border:1px solid var(--line);
+    border-radius:20px; padding:30px 28px; text-align:center;
+  }
+  .auth-box h2{ font-family:'Bricolage Grotesque', sans-serif; font-size:22px; margin:0 0 8px 0; color:var(--text); }
+  .auth-box p{ color:var(--text-dim); font-size:13px; line-height:1.5; margin:0 0 18px 0; }
+  .auth-input{
+    width:100%; padding:12px 14px; border-radius:10px; border:1px solid var(--line);
+    background: rgba(0,0,0,0.15); color:var(--text); font-family:'Inter',sans-serif; font-size:14px;
+    margin-bottom:12px;
+  }
+  .auth-input:focus{ outline:none; border-color: var(--text-faint); }
+  .auth-submit{
+    width:100%; padding:12px; border-radius:10px; border:none;
+    background: linear-gradient(90deg, var(--rust), var(--gold)); color: var(--ink);
+    font-family:'Inter',sans-serif; font-weight:700; font-size:14px; cursor:pointer;
+  }
+  .auth-submit:disabled{ opacity:.5; cursor:default; }
+  .auth-error{ color:#ff9d9d; font-size:12.5px; margin-top:12px; display:none; }
+  .logout-link{ background:none; border:none; color: var(--text-faint); font-size:12px; text-decoration:underline; cursor:pointer; padding:0; margin-top:10px; }
+  .logout-link:hover{ color: var(--text); }
+
   .board-feed{ margin-top: 20px; display:flex; flex-direction:column; gap: 12px; max-height: 520px; overflow-y:auto; }
   .board-empty{ color: var(--text-faint); font-size: 13px; text-align:center; padding: 10px 0; }
   .board-msg{
@@ -279,6 +307,17 @@
 </style>
 </head>
 <body>
+<div class="auth-gate" id="authGate">
+  <div class="auth-box">
+    <h2>Trailhead</h2>
+    <p>Enter the shared password to see your tracker.</p>
+    <form id="authForm">
+      <input type="password" class="auth-input" id="authPassword" placeholder="Password" autocomplete="current-password" required>
+      <button type="submit" class="auth-submit" id="authSubmit">Unlock</button>
+      <div class="auth-error" id="authError"></div>
+    </form>
+  </div>
+</div>
 <div class="wrap">
   <header>
     <div class="kicker">TRAILHEAD</div>
@@ -3049,10 +3088,12 @@
   <footer>
     <div>Progress is saved live and shared between both of you — changes on one device show up on the other within a moment. Each week splits into two sections — one for each of you — with your own tick and an editable distance per run. Tap a week's square to open it; once you've both ticked off every run in a week, it fades and moves to the end of the grid.</div>
     <button class="reset-btn" id="resetBtn" artifact-local>Reset all progress</button>
+    <div><button class="logout-link" id="logoutBtn" type="button">Log out</button></div>
   </footer>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-database-compat.js"></script>
 <script>
 function recompute(){
@@ -3175,6 +3216,71 @@ try{
   dbRef = firebase.database().ref("trailhead-tracker-v1");
 }catch(e){ console.error("Firebase init failed, falling back to local-only saving:", e); }
 
+/* ---- Password gate ---- */
+try{
+  const AUTH_EMAIL = "shared@trailhead.local";
+  let hasUnlocked = false;
+
+  function showApp(){
+    const gate = document.getElementById("authGate");
+    const wrapEl = document.querySelector(".wrap");
+    if(gate) gate.style.display = "none";
+    if(wrapEl) wrapEl.style.display = "block";
+    if(!hasUnlocked){
+      hasUnlocked = true;
+      document.dispatchEvent(new Event("trailhead-unlocked"));
+    }
+  }
+
+  function showGate(msg){
+    const gate = document.getElementById("authGate");
+    const wrapEl = document.querySelector(".wrap");
+    if(wrapEl) wrapEl.style.display = "none";
+    if(gate) gate.style.display = "flex";
+    const errEl = document.getElementById("authError");
+    if(errEl){
+      if(msg){ errEl.textContent = msg; errEl.style.display = "block"; }
+      else{ errEl.style.display = "none"; }
+    }
+  }
+
+  firebase.auth().onAuthStateChanged(user => {
+    if(user) showApp(); else showGate();
+  });
+
+  const authFormEl = document.getElementById("authForm");
+  if(authFormEl){
+    authFormEl.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const pwEl = document.getElementById("authPassword");
+      const btn = document.getElementById("authSubmit");
+      btn.disabled = true;
+      firebase.auth().signInWithEmailAndPassword(AUTH_EMAIL, pwEl.value)
+        .then(() => { pwEl.value = ""; })
+        .catch(err => {
+          const msg = (err.code === "auth/wrong-password" || err.code === "auth/invalid-credential" || err.code === "auth/invalid-login-credentials")
+            ? "Wrong password — try again."
+            : "Couldn't log in: " + err.message;
+          showGate(msg);
+        })
+        .finally(() => { btn.disabled = false; });
+    });
+  }
+
+  const logoutBtnEl = document.getElementById("logoutBtn");
+  if(logoutBtnEl){
+    logoutBtnEl.addEventListener("click", () => {
+      firebase.auth().signOut().catch(e => console.error("Sign out failed:", e));
+    });
+  }
+}catch(e){
+  console.error("Auth setup failed:", e);
+  const gate = document.getElementById("authGate");
+  const errEl = document.getElementById("authError");
+  if(gate) gate.style.display = "flex";
+  if(errEl){ errEl.textContent = "Couldn't reach the login system — check your connection and reload."; errEl.style.display = "block"; }
+}
+
 function collectData(){
   const data = {
     nameA: document.getElementById("nameA").value,
@@ -3248,13 +3354,15 @@ loadLocal();
 recompute();
 
 if(dbRef){
-  dbRef.on("value", snapshot => {
-    applyingRemote = true;
-    applyData(snapshot.val());
-    recompute();
-    saveLocal();
-    applyingRemote = false;
-  }, err => console.error("Firebase read failed:", err));
+  document.addEventListener("trailhead-unlocked", () => {
+    dbRef.on("value", snapshot => {
+      applyingRemote = true;
+      applyData(snapshot.val());
+      recompute();
+      saveLocal();
+      applyingRemote = false;
+    }, err => console.error("Firebase read failed:", err));
+  });
 }
 
 /* ---- Message board ---- */
@@ -3425,19 +3533,21 @@ function renderBoard(){
   });
 }
 
-if(msgsRef){
-  msgsRef.on("value", snapshot => {
-    latestMessages = snapshot.val() || {};
+document.addEventListener("trailhead-unlocked", () => {
+  if(msgsRef){
+    msgsRef.on("value", snapshot => {
+      latestMessages = snapshot.val() || {};
+      renderBoard();
+    }, err => console.error("Could not load messages:", err));
+  } else {
     renderBoard();
-  }, err => console.error("Could not load messages:", err));
-} else {
-  renderBoard();
-  const statusEl = document.getElementById("boardStatus");
-  if(statusEl){
-    statusEl.textContent = "Couldn't connect to the shared message board — check your internet connection and reload the page.";
-    statusEl.style.display = "block";
+    const statusEl = document.getElementById("boardStatus");
+    if(statusEl){
+      statusEl.textContent = "Couldn't connect to the shared message board — check your internet connection and reload the page.";
+      statusEl.style.display = "block";
+    }
   }
-}
+});
 }catch(e){ console.error("Message board setup failed, tracker is unaffected:", e); }
 </script>
 </body>
