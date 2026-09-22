@@ -10,16 +10,6 @@ let activityEntries = { a: [], b: [] };
 let activityIdCounter = 0;
 let currentActivityPerson = "a";
 
-function activityOptions(selected){
-  return [
-    ["hiking", "Hiking"],
-    ["cycling", "Cycling"],
-    ["swimming", "Swimming"],
-    ["strength", "Strength training"],
-    ["workout", "Workout"]
-  ].map(([value, label]) => `<option value="${value}"${value === selected ? " selected" : ""}>${label}</option>`).join("");
-}
-
 function activityLabel(activity){
   return {
     hiking: "Hiking",
@@ -30,7 +20,7 @@ function activityLabel(activity){
   }[activity] || "Activity";
 }
 
-function updateActivityAddUnit(person){
+function updateActivityAddUnit(){
   const type = document.getElementById("activityType");
   const input = document.getElementById("activityMinutes");
   const unit = document.getElementById("activityUnit");
@@ -75,7 +65,7 @@ function syncActivityState(){
   list.querySelectorAll(".activity-msg").forEach(row => {
     const existing = activityEntries[row.dataset.person].find(entry => entry.id === row.dataset.id);
     if(existing){
-      existing.minutes = row.querySelector(".saved-activity-input").value;
+      existing.minutes = parseInt(row.querySelector(".saved-activity-input").value) || 0;
       existing.activity = row.dataset.activity;
     }
   });
@@ -91,7 +81,6 @@ function addActivity(person){
     id: "activity-" + person + "-" + Date.now() + "-" + (++activityIdCounter),
     activity: type.value,
     minutes: value,
-    checked: true,
     ts: Date.now()
   });
   minutes.value = "";
@@ -108,7 +97,6 @@ function migrateActivities(data){
           id: entry.id || "activity-" + person + "-" + (++activityIdCounter),
           activity: ACTIVITY_RATES[entry.activity] ? entry.activity : "hiking",
           minutes: entry.minutes || entry.value || "",
-          checked: entry.checked !== false,
           ts: entry.ts || Date.now()
         }));
       } else {
@@ -118,7 +106,6 @@ function migrateActivities(data){
             id: "activity-" + person + "-" + (++activityIdCounter),
             activity: ACTIVITY_RATES[entry.activity] ? entry.activity : id.split("-").pop(),
             minutes: entry.value || "",
-            checked: !!entry.checked,
             ts: entry.ts || Date.now()
           }))
           .filter(entry => ACTIVITY_RATES[entry.activity]);
@@ -126,10 +113,6 @@ function migrateActivities(data){
     });
   }
   return migrated;
-}
-
-function updateActivityUnits(){
-  document.querySelectorAll(".activity-unit").forEach(unit => { unit.textContent = "min"; });
 }
 
 function recompute(){
