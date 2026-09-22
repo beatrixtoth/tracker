@@ -37,10 +37,10 @@
   }
   .wrap{ max-width: 780px; margin: 0 auto; padding: 40px 24px 0 24px; }
   header{ margin-bottom: 32px; }
-  .kicker{ font-size: 13px; color: var(--sage); font-weight: 600; margin-bottom: 6px; }
+  .kicker{ font-size: 17.19px; color: var(--sage); font-weight: 600; margin-bottom: 6px; text-align: center; }
   h1{
-    font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: clamp(30px, 5.5vw, 44px);
-    letter-spacing: -0.02em; line-height: 1.02; margin: 0 0 10px 0; color: var(--text);
+    font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: clamp(34.485px, 6.32225vw, 50.578px);
+    letter-spacing: -0.02em; line-height: 1.02; margin: 0 0 10px 0; color: var(--text); text-align: center;
   }
   .sub{ color: var(--text-dim); font-size: 15px; max-width: 48ch; line-height: 1.5; }
   nav.jump{ display:flex; gap: 14px; margin-top: 18px; }
@@ -87,8 +87,33 @@
   .bar-fill.b{ background: linear-gradient(90deg, var(--teal), #c7e0a4); }
   .km-sub{ margin-top:8px; font-size: 12px; color: var(--text-faint); }
 
-  .phase-title{ font-family:'Bricolage Grotesque', sans-serif; font-weight: 700; letter-spacing: -0.01em; font-size: 25px; margin: 42px 0 6px 0; scroll-margin-top: 20px; }
-  .phase-blurb{ color: var(--text-dim); font-size: 14px; line-height: 1.55; margin-bottom: 22px; max-width: 62ch; }
+  .activities-card{
+    margin-top: 18px; background: var(--bg-card); border: 1px solid var(--line);
+    border-radius: 24px; padding: 22px; box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+  }
+  .activity-sender{ display:flex; gap:8px; margin-bottom:12px; }
+  .activity-sender-btn{ flex:1; padding:8px 10px; border-radius:10px; border:1.5px solid var(--line); background:rgba(0,0,0,0.15); color:var(--text-dim); font:700 13px 'Inter',sans-serif; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:7px; }
+  .activity-sender-btn.active.sender-a{ border-color:var(--rust); color:var(--ink); background:var(--rust); }
+  .activity-sender-btn.active.sender-b{ border-color:var(--teal); color:var(--ink); background:var(--teal); }
+  .activity-feed{ margin-top:16px; }
+  .activity-feed-person + .activity-feed-person{ margin-top:14px; }
+  .activity-feed-person-title{ display:flex; align-items:center; gap:6px; margin-bottom:4px; color:var(--text-dim); font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; }
+  .activity-rate{ margin-top:10px; color:var(--text-faint); font-size:11px; line-height:1.5; text-align:center; }
+  .activity-add-row{ display:grid; grid-template-columns:minmax(120px, 1fr) 62px auto auto; gap:6px; }
+  .activity-row{ display:grid; grid-template-columns:16px minmax(90px, 1fr) 62px auto auto; align-items:center; gap:6px; padding:8px 0; border-top:1px solid var(--line); }
+  .activity-check{ width:16px; height:16px; accent-color:var(--rust); }
+  .activity-select{ min-width:0; width:100%; border:1px solid var(--line); border-radius:7px; background:var(--bg-raised); color:var(--text); font:12px 'Inter',sans-serif; padding:5px 4px; }
+  .activity-input{ min-width:0; width:62px; border:1px solid var(--line); border-radius:7px; background:var(--bg-raised); color:var(--text); font:12px 'Inter',sans-serif; padding:5px 4px; text-align:center; }
+  .activity-unit{ color:var(--text-faint); font-size:11px; }
+  .activity-add-btn,.activity-remove{ border:1px solid var(--line); border-radius:7px; background:none; color:var(--text-dim); cursor:pointer; font:600 11px 'Inter',sans-serif; padding:5px 8px; }
+  .activity-add-btn:hover,.activity-remove:hover{ color:var(--text); border-color:var(--text-faint); }
+  .activity-list{ margin-top:10px; }
+  @media (max-width: 560px){
+    .activity-row{ grid-template-columns:16px minmax(80px, 1fr) 56px auto auto; }
+  }
+
+  .phase-title{ font-family:'Bricolage Grotesque', sans-serif; font-weight: 700; letter-spacing: -0.01em; font-size: 30px; margin: 30px 0; scroll-margin-top: 20px; text-align: center; }
+  .phase-blurb{ color: var(--text-dim); font-size: 14px; line-height: 1.55; margin-bottom: 22px; max-width: 62ch; text-align: center; }
 
   .run-types-title{
     font-family:'Bricolage Grotesque', sans-serif; font-weight: 700; letter-spacing: -0.01em;
@@ -224,15 +249,16 @@
   .run.completed .run-detail{ display:none; }
 
   footer{
-    max-width: 780px; margin: 40px auto 0 auto; padding: 20px 24px 0 24px;
+    max-width: 780px; margin: 40px auto 0 auto; padding: 20px 0 0 0;
     color: var(--text-faint); font-size: 12.5px; line-height: 1.6; border-top: 1px solid var(--line);
+    display:flex; align-items:center; justify-content:space-between;
   }
-  .reset-btn{ background:none; border: 1px solid var(--line); color: var(--text-faint); font-size: 12px; padding: 6px 12px; border-radius: 8px; cursor: pointer; margin-top: 10px; }
+  .reset-btn{ background:none; border: 1px solid var(--line); color: var(--text-faint); font-size: 12px; padding: 6px 12px; border-radius: 8px; cursor: pointer; }
   .reset-btn:hover{ color: var(--text); border-color: var(--text-faint); }
 
   /* Message board */
   .board-card{
-    margin-top: 18px; background: var(--bg-card); border: 1px solid var(--line);
+    margin-top: 0; background: var(--bg-card); border: 1px solid var(--line);
     border-radius: 24px; padding: 22px; box-shadow: 0 8px 24px rgba(0,0,0,0.25);
   }
   .board-sender{ display:flex; gap: 8px; margin-bottom: 12px; }
@@ -294,7 +320,7 @@
   }
   .auth-submit:disabled{ opacity:.5; cursor:default; }
   .auth-error{ color:#ff9d9d; font-size:12.5px; margin-top:12px; display:none; }
-  .logout-link{ background:none; border:none; color: var(--text-faint); font-size:12px; text-decoration:underline; cursor:pointer; padding:0; margin-top:10px; }
+  .logout-link{ background:none; border:none; color: var(--text-faint); font-size:12px; text-decoration:underline; cursor:pointer; padding:0; }
   .logout-link:hover{ color: var(--text); }
 
   .board-feed{ margin-top: 20px; display:flex; flex-direction:column; gap: 12px; max-height: 520px; overflow-y:auto; }
@@ -332,8 +358,7 @@
 <div class="wrap">
   <header>
     <div class="kicker">TRAILHEAD</div>
-    <h1>Your half marathon,<br>side by side.</h1>
-    <div class="sub">Each of you gets your own tick per run, so you can see how you're both tracking against the plan — and against each other.</div>
+    <h1>The Big Half Marathon Training.</h1>
   </header>
 
   <div class="progress-card" artifact-local>
@@ -356,8 +381,7 @@
   </div>
 
   <section id="board">
-    <div class="phase-title">Notes to each other</div>
-    <div class="phase-blurb">Leave a message or a photo for each other — cheer each other on, share a race-day pic, whatever. Shows up live on both devices.</div>
+    <div class="phase-title">Notes</div>
     <div class="board-card">
       <div class="board-sender">
         <button type="button" class="board-sender-btn sender-a" id="senderBtnA" data-sender="a">
@@ -387,8 +411,7 @@
 
   
     <section class="phase-section" id="plan">
-      <h2 class="phase-title">Your 30-week plan</h2>
-      <p class="phase-blurb">Weeks 1–17 build your base; weeks 18–29 peak toward a 19 km long run, then taper into race day. Harder runs are worth more points — tick one off and it counts toward your total above.</p>
+      <h2 class="phase-title">30-week plan</h2>
       <div class="weeks" data-phase="1">
     <details class="week " data-week="1" data-order="0" data-runs="3" data-km="16.5">
       <summary class="week-head">
@@ -3061,9 +3084,33 @@
       </div>
     </details>
       </div>
-      <details class="run-types-details">
-        <summary class="run-types-title">Understanding the run types<span class="chev">&#9656;</span></summary>
-        <div class="run-types">
+    </section>
+
+  <section id="activities">
+    <div class="phase-title">Other activities</div>
+    <div class="activities-card">
+      <div class="activity-sender">
+        <button type="button" class="activity-sender-btn sender-a active" id="activitySenderA"><span class="name-dot dot-a"></span><span class="person-name-a">Beatrix</span></button>
+        <button type="button" class="activity-sender-btn sender-b" id="activitySenderB"><span class="name-dot dot-b"></span><span class="person-name-b">Julian</span></button>
+      </div>
+      <div class="activity-add-row"><select class="activity-select" id="activityType"><option value="hiking">Hiking</option><option value="cycling">Cycling</option><option value="swimming">Swimming</option><option value="strength">Strength training</option><option value="workout">Workout</option></select><input type="number" class="activity-input" id="activityMinutes" min="1" step="1" placeholder="km"><span class="activity-unit" id="activityUnit">km</span><button type="button" class="activity-add-btn" id="addActivity">Add</button></div>
+      <div class="activity-feed">
+        <div class="activity-feed-person">
+          <div class="activity-feed-person-title"><span class="name-dot dot-a"></span><span class="person-name-a">Beatrix</span></div>
+          <div class="activity-list" id="activityListA"></div>
+        </div>
+        <div class="activity-feed-person">
+          <div class="activity-feed-person-title"><span class="name-dot dot-b"></span><span class="person-name-b">Julian</span></div>
+          <div class="activity-list" id="activityListB"></div>
+        </div>
+      </div>
+      <div class="activity-rate">Points: hiking 0.5/km · cycling 0.4/30 min · swimming 0.6/30 min · strength 0.5/30 min · workout 0.6/30 min</div>
+    </div>
+  </section>
+
+  <details class="run-types-details">
+    <summary class="run-types-title">Understanding the run types<span class="chev">&#9656;</span></summary>
+    <div class="run-types">
       <div class="run-type-card">
         <div class="rtc-head"><span class="rtc-name">Easy</span><span class="rtc-mult">×1 pts/km</span></div>
         <div class="rtc-why">Aerobic base + recovery</div>
@@ -3094,12 +3141,10 @@
         <div class="rtc-why">The one it's all for</div>
         <div class="rtc-how">Run it at the pace you've been practising in your tempo and race-pace sessions. Stick to the fuelling and hydration you rehearsed on your long runs — race day is not the day to try something new.</div>
       </div>
-        </div>
-      </details>
-    </section>
+    </div>
+  </details>
 
   <footer>
-    <div>Progress is saved live and shared between both of you — changes on one device show up on the other within a moment. Each week splits into two sections — one for each of you — with your own tick and an editable distance per run. Tap a week's square to open it; once you've both ticked off every run in a week, it fades and moves to the end of the grid.</div>
     <button class="reset-btn" id="resetBtn" artifact-local>Reset all progress</button>
     <div><button class="logout-link" id="logoutBtn" type="button">Log out</button></div>
   </footer>
@@ -3109,6 +3154,122 @@
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-database-compat.js"></script>
 <script>
+const ACTIVITY_RATES = {
+  hiking: { unit: "km", rate: 0.5 },
+  cycling: { unit: "min", rate: 0.4 },
+  swimming: { unit: "min", rate: 0.6 },
+  strength: { unit: "min", rate: 0.5 },
+  workout: { unit: "min", rate: 0.6 }
+};
+
+let activityEntries = { a: [], b: [] };
+let activityIdCounter = 0;
+let currentActivityPerson = "a";
+
+function activityOptions(selected){
+  return [
+    ["hiking", "Hiking"],
+    ["cycling", "Cycling"],
+    ["swimming", "Swimming"],
+    ["strength", "Strength training"],
+    ["workout", "Workout"]
+  ].map(([value, label]) => `<option value="${value}"${value === selected ? " selected" : ""}>${label}</option>`).join("");
+}
+
+function updateActivityAddUnit(person){
+  const type = document.getElementById("activityType");
+  const input = document.getElementById("activityMinutes");
+  const unit = document.getElementById("activityUnit");
+  const selected = ACTIVITY_RATES[type.value];
+  if(unit) unit.textContent = selected.unit;
+  if(input) input.placeholder = selected.unit;
+}
+
+function setActivityPerson(person){
+  currentActivityPerson = person;
+  document.getElementById("activitySenderA").classList.toggle("active", person === "a");
+  document.getElementById("activitySenderB").classList.toggle("active", person === "b");
+  updateActivityAddUnit();
+}
+
+function updateSavedActivityUnit(row){
+  const select = row.querySelector(".saved-activity-select");
+  const unit = row.querySelector(".activity-unit");
+  if(select && unit) unit.textContent = ACTIVITY_RATES[select.value].unit;
+}
+
+function renderActivityList(person){
+  const list = document.getElementById("activityList" + person.toUpperCase());
+  if(!list) return;
+  list.innerHTML = activityEntries[person].map(entry => `
+    <div class="activity-row" data-id="${entry.id}">
+      <input type="checkbox" class="saved-activity-check-${person}" data-id="${entry.id}"${entry.checked ? " checked" : ""}>
+      <select class="activity-select saved-activity-select" data-id="${entry.id}">${activityOptions(entry.activity)}</select>
+      <input type="number" class="activity-input saved-activity-input" data-id="${entry.id}" min="1" step="1" value="${entry.minutes}" aria-label="Minutes">
+      <span class="activity-unit">${ACTIVITY_RATES[entry.activity].unit}</span>
+      <button type="button" class="activity-remove" data-id="${entry.id}">Remove</button>
+    </div>`).join("");
+}
+
+function syncActivityState(person){
+  const list = document.getElementById("activityList" + person.toUpperCase());
+  if(!list) return;
+  activityEntries[person] = Array.from(list.querySelectorAll(".activity-row")).map(row => ({
+    id: row.dataset.id,
+    activity: row.querySelector(".saved-activity-select").value,
+    minutes: row.querySelector(".saved-activity-input").value,
+    checked: row.querySelector(".saved-activity-check-" + person).checked
+  }));
+}
+
+function addActivity(person){
+  person = currentActivityPerson;
+  const type = document.getElementById("activityType");
+  const minutes = document.getElementById("activityMinutes");
+  const value = parseFloat(minutes.value) || 0;
+  if(value <= 0) return;
+  activityEntries[person].push({
+    id: "activity-" + person + "-" + Date.now() + "-" + (++activityIdCounter),
+    activity: type.value,
+    minutes: value,
+    checked: true
+  });
+  minutes.value = "";
+  renderActivityList(person);
+  recomputeAndSave();
+}
+
+function migrateActivities(data){
+  const migrated = { a: [], b: [] };
+  if(data && data.activities){
+    ["a", "b"].forEach(person => {
+      if(Array.isArray(data.activities[person])){
+        migrated[person] = data.activities[person].map(entry => ({
+          id: entry.id || "activity-" + person + "-" + (++activityIdCounter),
+          activity: ACTIVITY_RATES[entry.activity] ? entry.activity : "hiking",
+          minutes: entry.minutes || entry.value || "",
+          checked: entry.checked !== false
+        }));
+      } else {
+        migrated[person] = Object.entries(data.activities)
+          .filter(([id, entry]) => id.indexOf("activity-" + person + "-") === 0 && (entry.checked || entry.value))
+          .map(([id, entry]) => ({
+            id: "activity-" + person + "-" + (++activityIdCounter),
+            activity: ACTIVITY_RATES[entry.activity] ? entry.activity : id.split("-").pop(),
+            minutes: entry.value || "",
+            checked: !!entry.checked
+          }))
+          .filter(entry => ACTIVITY_RATES[entry.activity]);
+      }
+    });
+  }
+  return migrated;
+}
+
+function updateActivityUnits(){
+  document.querySelectorAll(".activity-unit").forEach(unit => { unit.textContent = "min"; });
+}
+
 function recompute(){
   const nameA = document.getElementById("nameA").value.trim() || "Beatrix";
   const nameB = document.getElementById("nameB").value.trim() || "Julian";
@@ -3144,6 +3305,22 @@ function recompute(){
     ptsPossibleB += g * mult;
     if(c.checked){ doneB++; kmB += g; ptsB += g * mult; }
   });
+
+  function activityPoints(person){
+    let points = 0;
+    document.querySelectorAll(".saved-activity-check-" + person).forEach(check => {
+      if(!check.checked) return;
+      const row = check.closest(".activity-row");
+      const activity = row.querySelector(".saved-activity-select").value;
+      const amount = parseFloat(row.querySelector(".saved-activity-input").value) || 0;
+      if(!ACTIVITY_RATES[activity]) return;
+      points += activity === "hiking" ? amount * ACTIVITY_RATES[activity].rate : (amount / 30) * ACTIVITY_RATES[activity].rate;
+    });
+    return points;
+  }
+
+  ptsA += activityPoints("a");
+  ptsB += activityPoints("b");
 
   const pctA = ptsPossibleA ? Math.round((ptsA/ptsPossibleA)*100) : 0;
   const pctB = ptsPossibleB ? Math.round((ptsB/ptsPossibleB)*100) : 0;
@@ -3295,11 +3472,14 @@ try{
 }
 
 function collectData(){
+  syncActivityState("a");
+  syncActivityState("b");
   const data = {
     nameA: document.getElementById("nameA").value,
     nameB: document.getElementById("nameB").value,
     checks: {},
-    goals: {}
+    goals: {},
+    activities: activityEntries
   };
   document.querySelectorAll(".run-check").forEach(c => {
     data.checks[c.dataset.id] = c.checked;
@@ -3320,6 +3500,9 @@ function applyData(data){
   document.querySelectorAll(".goal-input").forEach(i => {
     if(data.goals && data.goals[i.dataset.id] !== undefined) i.value = data.goals[i.dataset.id];
   });
+  activityEntries = migrateActivities(data);
+  renderActivityList("a");
+  renderActivityList("b");
 }
 
 function saveLocal(){
@@ -3351,12 +3534,35 @@ function recomputeAndSave(){
 
 document.querySelectorAll(".run-check").forEach(c => c.addEventListener("change", recomputeAndSave));
 document.querySelectorAll(".goal-input").forEach(i => i.addEventListener("input", recomputeAndSave));
+document.getElementById("addActivity").addEventListener("click", () => addActivity());
+document.getElementById("activitySenderA").addEventListener("click", () => setActivityPerson("a"));
+document.getElementById("activitySenderB").addEventListener("click", () => setActivityPerson("b"));
+document.getElementById("activityType").addEventListener("change", updateActivityAddUnit);
+setActivityPerson("a");
+["a", "b"].forEach(person => {
+  const list = document.getElementById("activityList" + person.toUpperCase());
+  list.addEventListener("input", () => { syncActivityState(person); recomputeAndSave(); });
+  list.addEventListener("change", e => {
+    if(e.target.classList.contains("saved-activity-select")) updateSavedActivityUnit(e.target.closest(".activity-row"));
+    syncActivityState(person);
+    recomputeAndSave();
+  });
+  list.addEventListener("click", e => {
+    if(!e.target.classList.contains("activity-remove")) return;
+    activityEntries[person] = activityEntries[person].filter(entry => entry.id !== e.target.dataset.id);
+    renderActivityList(person);
+    recomputeAndSave();
+  });
+});
 document.getElementById("nameA").addEventListener("input", recomputeAndSave);
 document.getElementById("nameB").addEventListener("input", recomputeAndSave);
 
 document.getElementById("resetBtn").addEventListener("click", () => {
-  if(!confirm("Reset all logged runs? This can't be undone.")) return;
+  if(!confirm("Reset all progress? This can't be undone.")) return;
   document.querySelectorAll(".run-check").forEach(c => { c.checked = false; });
+  activityEntries = { a: [], b: [] };
+  renderActivityList("a");
+  renderActivityList("b");
   recompute();
   saveLocal();
   saveRemote();
@@ -3518,7 +3724,9 @@ function formatTime(ts){
 function renderBoard(){
   const feed = document.getElementById("boardFeed");
   if(!feed) return;
-  const entries = Object.entries(latestMessages).sort((a, b) => (b[1].ts || 0) - (a[1].ts || 0));
+  const entries = Object.entries(latestMessages)
+    .sort((a, b) => (b[1].ts || 0) - (a[1].ts || 0))
+    .slice(0, 3);
   if(entries.length === 0){
     feed.innerHTML = '<div class="board-empty">No messages yet — be the first to say something.</div>';
     return;
