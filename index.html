@@ -218,6 +218,62 @@
   }
   .reset-btn{ background:none; border: 1px solid var(--line); color: var(--text-faint); font-size: 12px; padding: 6px 12px; border-radius: 8px; cursor: pointer; margin-top: 10px; }
   .reset-btn:hover{ color: var(--text); border-color: var(--text-faint); }
+
+  /* Message board */
+  .board-card{
+    margin-top: 18px; background: var(--bg-card); border: 1px solid var(--line);
+    border-radius: 24px; padding: 22px; box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+  }
+  .board-sender{ display:flex; gap: 8px; margin-bottom: 12px; }
+  .board-sender-btn{
+    flex:1; padding: 8px 10px; border-radius: 10px; border: 1.5px solid var(--line);
+    background: rgba(0,0,0,0.15); color: var(--text-dim); font-family:'Inter',sans-serif;
+    font-size: 13px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:7px;
+  }
+  .board-sender-btn.active.sender-a{ border-color: var(--rust); color: var(--rust); background: rgba(238,184,28,0.08); }
+  .board-sender-btn.active.sender-b{ border-color: var(--teal); color: var(--teal); background: rgba(188,174,50,0.1); }
+  .board-input-row{ display:flex; flex-direction:column; gap: 10px; }
+  .board-textarea{
+    width:100%; min-height: 60px; resize: vertical; background: rgba(0,0,0,0.15);
+    border: 1px solid var(--line); border-radius: 12px; color: var(--text); font-family:'Inter',sans-serif;
+    font-size: 14px; padding: 12px 14px; line-height:1.5;
+  }
+  .board-textarea:focus{ outline:none; border-color: var(--text-faint); }
+  .board-controls{ display:flex; align-items:center; justify-content:space-between; gap: 10px; flex-wrap:wrap; }
+  .board-img-label{
+    font-size: 12.5px; color: var(--text-dim); border: 1px dashed var(--line); border-radius: 8px;
+    padding: 6px 12px; cursor:pointer; display:inline-flex; align-items:center; gap:6px;
+  }
+  .board-img-label:hover{ color: var(--text); border-color: var(--text-faint); }
+  .board-img-input{ display:none; }
+  .board-img-preview-wrap{ display:flex; align-items:center; gap: 8px; }
+  .board-img-preview{ height: 44px; width: 44px; object-fit: cover; border-radius: 8px; border: 1px solid var(--line); }
+  .board-img-remove{ background:none; border:none; color: var(--text-faint); font-size: 12px; cursor:pointer; text-decoration: underline; }
+  .board-send-btn{
+    background: linear-gradient(90deg, var(--rust), var(--gold)); color: var(--ink); border:none;
+    font-family:'Inter',sans-serif; font-weight:700; font-size: 13px; padding: 9px 18px; border-radius: 10px; cursor:pointer;
+  }
+  .board-send-btn:hover{ filter: brightness(1.06); }
+  .board-send-btn:disabled{ opacity:.5; cursor:default; }
+
+  .board-feed{ margin-top: 20px; display:flex; flex-direction:column; gap: 12px; max-height: 520px; overflow-y:auto; }
+  .board-empty{ color: var(--text-faint); font-size: 13px; text-align:center; padding: 10px 0; }
+  .board-msg{
+    background: rgba(0,0,0,0.15); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px;
+    position: relative;
+  }
+  .board-msg-head{ display:flex; align-items:center; gap: 8px; margin-bottom: 6px; }
+  .board-msg-name{ font-size: 12.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.03em; }
+  .board-msg.sender-a .board-msg-name{ color: var(--rust); }
+  .board-msg.sender-b .board-msg-name{ color: var(--teal); }
+  .board-msg-time{ font-size: 11px; color: var(--text-faint); margin-left:auto; }
+  .board-msg-del{
+    background:none; border:none; color: var(--text-faint); font-size: 15px; cursor:pointer; line-height:1;
+    padding: 2px 4px;
+  }
+  .board-msg-del:hover{ color: var(--text); }
+  .board-msg-text{ font-size: 14px; color: var(--text); line-height:1.5; white-space: pre-wrap; word-break: break-word; }
+  .board-msg-img{ margin-top: 8px; max-width: 100%; max-height: 320px; border-radius: 10px; border: 1px solid var(--line); display:block; }
 </style>
 </head>
 <body>
@@ -246,6 +302,35 @@
       </div>
     </div>
   </div>
+
+  <section id="board">
+    <div class="phase-title">Notes to each other</div>
+    <div class="phase-blurb">Leave a message or a photo for each other — cheer each other on, share a race-day pic, whatever. Shows up live on both devices.</div>
+    <div class="board-card">
+      <div class="board-sender">
+        <button type="button" class="board-sender-btn sender-a" id="senderBtnA" data-sender="a">
+          <span class="name-dot dot-a"></span><span class="board-sender-label-a">Beatrix</span>
+        </button>
+        <button type="button" class="board-sender-btn sender-b" id="senderBtnB" data-sender="b">
+          <span class="name-dot dot-b"></span><span class="board-sender-label-b">Julian</span>
+        </button>
+      </div>
+      <div class="board-input-row">
+        <textarea class="board-textarea" id="boardText" placeholder="Say something..." maxlength="1000"></textarea>
+        <div class="board-controls">
+          <label class="board-img-label" id="boardImgLabel">📷 Add photo<input type="file" accept="image/*" class="board-img-input" id="boardImgInput"></label>
+          <div class="board-img-preview-wrap" id="boardImgPreviewWrap" style="display:none;">
+            <img class="board-img-preview" id="boardImgPreview" alt="">
+            <button type="button" class="board-img-remove" id="boardImgRemove">remove</button>
+          </div>
+          <button type="button" class="board-send-btn" id="boardSendBtn">Post</button>
+        </div>
+      </div>
+      <div class="board-feed" id="boardFeed">
+        <div class="board-empty">No messages yet — be the first to say something.</div>
+      </div>
+    </div>
+  </section>
 
   
     <section class="phase-section" id="plan">
@@ -2959,17 +3044,22 @@
     </section>
 
   <footer>
-    <div>This is a standalone file — your progress is saved on this device only (not shared live between devices). Each week splits into two sections — one for each of you — with your own tick and an editable distance per run. Tap a week's square to open it; once you've both ticked off every run in a week, it fades and moves to the end of the grid.</div>
+    <div>Progress is saved live and shared between both of you — changes on one device show up on the other within a moment. Each week splits into two sections — one for each of you — with your own tick and an editable distance per run. Tap a week's square to open it; once you've both ticked off every run in a week, it fades and moves to the end of the grid.</div>
     <button class="reset-btn" id="resetBtn" artifact-local>Reset all progress</button>
   </footer>
 </div>
 
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-database-compat.js"></script>
 <script>
 function recompute(){
   const nameA = document.getElementById("nameA").value.trim() || "Beatrix";
   const nameB = document.getElementById("nameB").value.trim() || "Julian";
   document.querySelectorAll(".person-name-a").forEach(el => el.textContent = nameA);
   document.querySelectorAll(".person-name-b").forEach(el => el.textContent = nameB);
+  document.querySelectorAll(".board-sender-label-a").forEach(el => el.textContent = nameA);
+  document.querySelectorAll(".board-sender-label-b").forEach(el => el.textContent = nameB);
+  if(typeof renderBoard === "function") renderBoard();
 
   const checksA = document.querySelectorAll(".check-a");
   const checksB = document.querySelectorAll(".check-b");
@@ -3064,41 +3154,79 @@ function reorderRuns(){
 
 const LS_KEY = "trailhead-tracker-v1";
 
+const firebaseConfig = {
+  apiKey: "AIzaSyANgEsY48vWMmcMta7Yov313MHJBk49VOY",
+  authDomain: "tracker-1102c.firebaseapp.com",
+  databaseURL: "https://tracker-1102c-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "tracker-1102c",
+  storageBucket: "tracker-1102c.firebasestorage.app",
+  messagingSenderId: "348410508185",
+  appId: "1:348410508185:web:80253e5ade6e04ff6a5908"
+};
+
+let dbRef = null;
+let applyingRemote = false;
+let writeTimer = null;
+
+try{
+  firebase.initializeApp(firebaseConfig);
+  dbRef = firebase.database().ref("trailhead-tracker-v1");
+}catch(e){ console.error("Firebase init failed, falling back to local-only saving:", e); }
+
+function collectData(){
+  const data = {
+    nameA: document.getElementById("nameA").value,
+    nameB: document.getElementById("nameB").value,
+    checks: {},
+    goals: {}
+  };
+  document.querySelectorAll(".run-check").forEach(c => {
+    data.checks[c.dataset.id] = c.checked;
+  });
+  document.querySelectorAll(".goal-input").forEach(i => {
+    data.goals[i.dataset.id] = i.value;
+  });
+  return data;
+}
+
+function applyData(data){
+  if(!data) return;
+  if(data.nameA) document.getElementById("nameA").value = data.nameA;
+  if(data.nameB) document.getElementById("nameB").value = data.nameB;
+  document.querySelectorAll(".run-check").forEach(c => {
+    c.checked = !!(data.checks && data.checks[c.dataset.id]);
+  });
+  document.querySelectorAll(".goal-input").forEach(i => {
+    if(data.goals && data.goals[i.dataset.id] !== undefined) i.value = data.goals[i.dataset.id];
+  });
+}
+
 function saveLocal(){
-  try{
-    const data = {
-      nameA: document.getElementById("nameA").value,
-      nameB: document.getElementById("nameB").value,
-      checks: {},
-      goals: {}
-    };
-    document.querySelectorAll(".run-check").forEach(c => {
-      data.checks[c.dataset.id] = c.checked;
-    });
-    document.querySelectorAll(".goal-input").forEach(i => {
-      data.goals[i.dataset.id] = i.value;
-    });
-    localStorage.setItem(LS_KEY, JSON.stringify(data));
-  }catch(e){ console.error("Could not save locally:", e); }
+  try{ localStorage.setItem(LS_KEY, JSON.stringify(collectData())); }
+  catch(e){ console.error("Could not save locally:", e); }
 }
 
 function loadLocal(){
   try{
     const raw = localStorage.getItem(LS_KEY);
     if(!raw) return;
-    const data = JSON.parse(raw);
-    if(data.nameA) document.getElementById("nameA").value = data.nameA;
-    if(data.nameB) document.getElementById("nameB").value = data.nameB;
-    document.querySelectorAll(".run-check").forEach(c => {
-      if(data.checks && data.checks[c.dataset.id]) c.checked = true;
-    });
-    document.querySelectorAll(".goal-input").forEach(i => {
-      if(data.goals && data.goals[i.dataset.id] !== undefined) i.value = data.goals[i.dataset.id];
-    });
+    applyData(JSON.parse(raw));
   }catch(e){ console.error("Could not load local save:", e); }
 }
 
-function recomputeAndSave(){ recompute(); saveLocal(); }
+function saveRemote(){
+  if(!dbRef) return;
+  clearTimeout(writeTimer);
+  writeTimer = setTimeout(() => {
+    dbRef.set(collectData()).catch(e => console.error("Could not save to Firebase:", e));
+  }, 300);
+}
+
+function recomputeAndSave(){
+  recompute();
+  saveLocal();
+  if(!applyingRemote) saveRemote();
+}
 
 document.querySelectorAll(".run-check").forEach(c => c.addEventListener("change", recomputeAndSave));
 document.querySelectorAll(".goal-input").forEach(i => i.addEventListener("input", recomputeAndSave));
@@ -3108,12 +3236,168 @@ document.getElementById("nameB").addEventListener("input", recomputeAndSave);
 document.getElementById("resetBtn").addEventListener("click", () => {
   if(!confirm("Reset all logged runs? This can't be undone.")) return;
   document.querySelectorAll(".run-check").forEach(c => { c.checked = false; });
-  localStorage.removeItem(LS_KEY);
   recompute();
+  saveLocal();
+  saveRemote();
 });
 
+// Paint instantly from whatever's cached on this device, then let Firebase take over as the shared source of truth.
 loadLocal();
 recompute();
+
+if(dbRef){
+  dbRef.on("value", snapshot => {
+    applyingRemote = true;
+    applyData(snapshot.val());
+    recompute();
+    saveLocal();
+    applyingRemote = false;
+  }, err => console.error("Firebase read failed:", err));
+}
+
+/* ---- Message board ---- */
+const SENDER_KEY = "trailhead-tracker-sender";
+let msgsRef = null;
+try{
+  if(firebase.apps && firebase.apps.length){
+    msgsRef = firebase.database().ref("trailhead-tracker-v1-messages");
+  }
+}catch(e){ console.error("Firebase messages init failed:", e); }
+
+let currentSender = localStorage.getItem(SENDER_KEY) || "a";
+let pendingImage = null; // data URL of a compressed image, or null
+let latestMessages = {};
+
+function setSender(s){
+  currentSender = s;
+  localStorage.setItem(SENDER_KEY, s);
+  document.getElementById("senderBtnA").classList.toggle("active", s === "a");
+  document.getElementById("senderBtnB").classList.toggle("active", s === "b");
+}
+document.getElementById("senderBtnA").addEventListener("click", () => setSender("a"));
+document.getElementById("senderBtnB").addEventListener("click", () => setSender("b"));
+setSender(currentSender);
+
+function compressImage(file, maxDim, quality){
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const img = new Image();
+      img.onload = () => {
+        let w = img.width, h = img.height;
+        if(w > h && w > maxDim){ h = Math.round(h * (maxDim / w)); w = maxDim; }
+        else if(h > maxDim){ w = Math.round(w * (maxDim / h)); h = maxDim; }
+        const canvas = document.createElement("canvas");
+        canvas.width = w; canvas.height = h;
+        canvas.getContext("2d").drawImage(img, 0, 0, w, h);
+        resolve(canvas.toDataURL("image/jpeg", quality));
+      };
+      img.onerror = reject;
+      img.src = reader.result;
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+document.getElementById("boardImgInput").addEventListener("change", async (e) => {
+  const file = e.target.files[0];
+  if(!file) return;
+  try{
+    let quality = 0.7;
+    let dataUrl = await compressImage(file, 900, quality);
+    // Keep shrinking if still large, so it stays well under Realtime Database limits.
+    while(dataUrl.length > 500000 && quality > 0.3){
+      quality -= 0.15;
+      dataUrl = await compressImage(file, 900, quality);
+    }
+    pendingImage = dataUrl;
+    const preview = document.getElementById("boardImgPreview");
+    preview.src = pendingImage;
+    document.getElementById("boardImgPreviewWrap").style.display = "flex";
+  }catch(err){
+    console.error("Could not process image:", err);
+    alert("Sorry, couldn't read that image — try a different file.");
+  }
+  e.target.value = "";
+});
+
+document.getElementById("boardImgRemove").addEventListener("click", () => {
+  pendingImage = null;
+  document.getElementById("boardImgPreviewWrap").style.display = "none";
+});
+
+document.getElementById("boardSendBtn").addEventListener("click", () => {
+  const textEl = document.getElementById("boardText");
+  const text = textEl.value.trim();
+  if(!text && !pendingImage) return;
+  if(!msgsRef){ alert("Message board isn't connected right now — check your connection and try again."); return; }
+  const nameA = document.getElementById("nameA").value.trim() || "Beatrix";
+  const nameB = document.getElementById("nameB").value.trim() || "Julian";
+  const payload = {
+    sender: currentSender,
+    name: currentSender === "a" ? nameA : nameB,
+    text: text,
+    image: pendingImage || null,
+    ts: Date.now()
+  };
+  msgsRef.push(payload).catch(e => console.error("Could not post message:", e));
+  textEl.value = "";
+  pendingImage = null;
+  document.getElementById("boardImgPreviewWrap").style.display = "none";
+});
+
+function escapeHtml(str){
+  const d = document.createElement("div");
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+function formatTime(ts){
+  try{
+    return new Date(ts).toLocaleString(undefined, { month:"short", day:"numeric", hour:"numeric", minute:"2-digit" });
+  }catch(e){ return ""; }
+}
+
+function renderBoard(){
+  const feed = document.getElementById("boardFeed");
+  if(!feed) return;
+  const entries = Object.entries(latestMessages).sort((a, b) => (b[1].ts || 0) - (a[1].ts || 0));
+  if(entries.length === 0){
+    feed.innerHTML = '<div class="board-empty">No messages yet — be the first to say something.</div>';
+    return;
+  }
+  feed.innerHTML = entries.map(([key, m]) => {
+    const senderClass = m.sender === "b" ? "sender-b" : "sender-a";
+    const img = m.image ? `<img class="board-msg-img" src="${m.image}" alt="shared photo">` : "";
+    const text = m.text ? `<div class="board-msg-text">${escapeHtml(m.text)}</div>` : "";
+    return `<div class="board-msg ${senderClass}" data-key="${key}">
+      <div class="board-msg-head">
+        <span class="name-dot ${m.sender === "b" ? "dot-b" : "dot-a"}"></span>
+        <span class="board-msg-name">${escapeHtml(m.name || "")}</span>
+        <span class="board-msg-time">${formatTime(m.ts)}</span>
+        <button type="button" class="board-msg-del" data-key="${key}" title="Delete">×</button>
+      </div>
+      ${text}${img}
+    </div>`;
+  }).join("");
+  feed.querySelectorAll(".board-msg-del").forEach(btn => {
+    btn.addEventListener("click", () => {
+      if(!msgsRef) return;
+      if(!confirm("Delete this message?")) return;
+      msgsRef.child(btn.dataset.key).remove().catch(e => console.error("Could not delete message:", e));
+    });
+  });
+}
+
+if(msgsRef){
+  msgsRef.on("value", snapshot => {
+    latestMessages = snapshot.val() || {};
+    renderBoard();
+  }, err => console.error("Could not load messages:", err));
+} else {
+  renderBoard();
+}
 </script>
 </body>
 </html>
