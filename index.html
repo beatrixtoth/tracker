@@ -1,0 +1,2816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Trailhead — Half Marathon Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="auth-gate" id="authGate">
+  <div class="auth-box">
+    <h2>Trailhead</h2>
+    <p>Enter the shared password to see your tracker.</p>
+    <form id="authForm">
+      <input type="password" class="auth-input" id="authPassword" placeholder="Password" autocomplete="current-password" required>
+      <button type="submit" class="auth-submit" id="authSubmit">Unlock</button>
+      <div class="auth-error" id="authError"></div>
+    </form>
+  </div>
+</div>
+<div class="wrap">
+  <header>
+    <div class="kicker">TRAILHEAD</div>
+    <h1>The Big Half Marathon Training.</h1>
+  </header>
+
+  <div class="progress-card" artifact-local>
+    <div class="compare-row">
+      <div class="compare-col col-a">
+        <div class="compare-name"><span class="name-dot dot-a"></span><input class="name-edit-inline" id="nameA" value="Beatrix" maxlength="18"></div>
+        <div class="pts-big" id="ptsA">0</div>
+        <div class="pts-lbl">points</div>
+        <div class="bar-track"><div class="bar-fill a" id="barA" style="width:0%"></div></div>
+        <div class="km-sub" id="kmA">0 km</div>
+      </div>
+      <div class="compare-col col-b">
+        <div class="compare-name"><span class="name-dot dot-b"></span><input class="name-edit-inline" id="nameB" value="Julian" maxlength="18"></div>
+        <div class="pts-big" id="ptsB">0</div>
+        <div class="pts-lbl">points</div>
+        <div class="bar-track"><div class="bar-fill b" id="barB" style="width:0%"></div></div>
+        <div class="km-sub" id="kmB">0 km</div>
+      </div>
+    </div>
+  </div>
+
+  <section id="board">
+    <div class="phase-title">Notes</div>
+    <div class="board-card">
+      <div class="board-sender">
+        <button type="button" class="board-sender-btn sender-a" id="senderBtnA" data-sender="a">
+          <span class="name-dot dot-a"></span><span class="board-sender-label-a">Beatrix</span>
+        </button>
+        <button type="button" class="board-sender-btn sender-b" id="senderBtnB" data-sender="b">
+          <span class="name-dot dot-b"></span><span class="board-sender-label-b">Julian</span>
+        </button>
+      </div>
+      <div class="board-input-row">
+        <textarea class="board-textarea" id="boardText" placeholder="Say something..." maxlength="1000"></textarea>
+        <div class="board-controls">
+          <label class="board-img-label" id="boardImgLabel">📷 Add photo<input type="file" accept="image/*" class="board-img-input" id="boardImgInput"></label>
+          <div class="board-img-preview-wrap" id="boardImgPreviewWrap" style="display:none;">
+            <img class="board-img-preview" id="boardImgPreview" alt="">
+            <button type="button" class="board-img-remove" id="boardImgRemove">remove</button>
+          </div>
+          <button type="button" class="board-send-btn" id="boardSendBtn">Post</button>
+        </div>
+        <div class="board-status" id="boardStatus" style="display:none;"></div>
+      </div>
+      <div class="board-feed" id="boardFeed">
+        <div class="board-empty">No messages yet — be the first to say something.</div>
+      </div>
+    </div>
+  </section>
+
+  
+    <section class="phase-section" id="plan">
+      <h2 class="phase-title">30-week plan</h2>
+      <div class="weeks" data-phase="1">
+    <details class="week " data-week="1" data-order="0" data-runs="3" data-km="16.5">
+      <summary class="week-head">
+        <span class="week-head-left">
+          <span class="week-num"><span class="week-num-label">Week</span><span class="week-num-value">1</span></span>
+          
+        </span>
+        <span class="week-meta-wrap">
+          <span class="chev">▸</span>
+        </span>
+      </summary>
+      <div class="person-sections">
+        <section class="person-section person-a">
+          <h4 class="person-heading"><span class="name-dot dot-a"></span><span class="person-name-a">Beatrix</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-1-0-a" data-order="0" data-mult="1.0">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-1-0-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-1-0-a" step="0.1" min="0" value="5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-1-1-a" data-order="1" data-mult="1.6">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-1-1-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">4×2 min pickups</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-1-1-a" step="0.1" min="0" value="5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-1-2-a" data-order="2" data-mult="1.3">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-1-2-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-1-2-a" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+        <section class="person-section person-b">
+          <h4 class="person-heading"><span class="name-dot dot-b"></span><span class="person-name-b">Julian</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-1-0-b" data-order="0" data-mult="1.0">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-1-0-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-1-0-b" step="0.1" min="0" value="5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-1-1-b" data-order="1" data-mult="1.6">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-1-1-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">4×2 min pickups</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-1-1-b" step="0.1" min="0" value="5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-1-2-b" data-order="2" data-mult="1.3">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-1-2-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-1-2-b" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+      </div>
+    </details>
+    <details class="week " data-week="2" data-order="1" data-runs="3" data-km="16.5">
+      <summary class="week-head">
+        <span class="week-head-left">
+          <span class="week-num"><span class="week-num-label">Week</span><span class="week-num-value">2</span></span>
+          
+        </span>
+        <span class="week-meta-wrap">
+          <span class="chev">▸</span>
+        </span>
+      </summary>
+      <div class="person-sections">
+        <section class="person-section person-a">
+          <h4 class="person-heading"><span class="name-dot dot-a"></span><span class="person-name-a">Beatrix</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-2-0-a" data-order="0" data-mult="1.0">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-2-0-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-2-0-a" step="0.1" min="0" value="5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-2-1-a" data-order="1" data-mult="1.6">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-2-1-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">4×2 min pickups</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-2-1-a" step="0.1" min="0" value="5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-2-2-a" data-order="2" data-mult="1.3">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-2-2-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-2-2-a" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+        <section class="person-section person-b">
+          <h4 class="person-heading"><span class="name-dot dot-b"></span><span class="person-name-b">Julian</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-2-0-b" data-order="0" data-mult="1.0">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-2-0-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-2-0-b" step="0.1" min="0" value="5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-2-1-b" data-order="1" data-mult="1.6">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-2-1-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">4×2 min pickups</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-2-1-b" step="0.1" min="0" value="5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-2-2-b" data-order="2" data-mult="1.3">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-2-2-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-2-2-b" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+      </div>
+    </details>
+    <details class="week " data-week="3" data-order="2" data-runs="3" data-km="19.0">
+      <summary class="week-head">
+        <span class="week-head-left">
+          <span class="week-num"><span class="week-num-label">Week</span><span class="week-num-value">3</span></span>
+          
+        </span>
+        <span class="week-meta-wrap">
+          <span class="chev">▸</span>
+        </span>
+      </summary>
+      <div class="person-sections">
+        <section class="person-section person-a">
+          <h4 class="person-heading"><span class="name-dot dot-a"></span><span class="person-name-a">Beatrix</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-3-0-a" data-order="0" data-mult="1.0">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-3-0-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-3-0-a" step="0.1" min="0" value="5.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-3-1-a" data-order="1" data-mult="1.6">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-3-1-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">5×2 min pickups</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-3-1-a" step="0.1" min="0" value="5.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-3-2-a" data-order="2" data-mult="1.3">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-3-2-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-3-2-a" step="0.1" min="0" value="8">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+        <section class="person-section person-b">
+          <h4 class="person-heading"><span class="name-dot dot-b"></span><span class="person-name-b">Julian</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-3-0-b" data-order="0" data-mult="1.0">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-3-0-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-3-0-b" step="0.1" min="0" value="5.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-3-1-b" data-order="1" data-mult="1.6">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-3-1-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">5×2 min pickups</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-3-1-b" step="0.1" min="0" value="5.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-3-2-b" data-order="2" data-mult="1.3">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-3-2-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-3-2-b" step="0.1" min="0" value="8">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+      </div>
+    </details>
+    <details class="week " data-week="4" data-order="3" data-runs="3" data-km="19.0">
+      <summary class="week-head">
+        <span class="week-head-left">
+          <span class="week-num"><span class="week-num-label">Week</span><span class="week-num-value">4</span></span>
+          
+        </span>
+        <span class="week-meta-wrap">
+          <span class="chev">▸</span>
+        </span>
+      </summary>
+      <div class="person-sections">
+        <section class="person-section person-a">
+          <h4 class="person-heading"><span class="name-dot dot-a"></span><span class="person-name-a">Beatrix</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-4-0-a" data-order="0" data-mult="1.0">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-4-0-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-4-0-a" step="0.1" min="0" value="5.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-4-1-a" data-order="1" data-mult="1.6">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-4-1-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">5×2 min pickups</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-4-1-a" step="0.1" min="0" value="5.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-4-2-a" data-order="2" data-mult="1.3">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-4-2-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-4-2-a" step="0.1" min="0" value="8">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+        <section class="person-section person-b">
+          <h4 class="person-heading"><span class="name-dot dot-b"></span><span class="person-name-b">Julian</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-4-0-b" data-order="0" data-mult="1.0">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-4-0-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-4-0-b" step="0.1" min="0" value="5.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-4-1-b" data-order="1" data-mult="1.6">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-4-1-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">5×2 min pickups</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-4-1-b" step="0.1" min="0" value="5.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-4-2-b" data-order="2" data-mult="1.3">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-4-2-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-4-2-b" step="0.1" min="0" value="8">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+      </div>
+    </details>
+    <details class="week " data-week="5" data-order="4" data-runs="3" data-km="22.0">
+      <summary class="week-head">
+        <span class="week-head-left">
+          <span class="week-num"><span class="week-num-label">Week</span><span class="week-num-value">5</span></span>
+          
+        </span>
+        <span class="week-meta-wrap">
+          <span class="chev">▸</span>
+        </span>
+      </summary>
+      <div class="person-sections">
+        <section class="person-section person-a">
+          <h4 class="person-heading"><span class="name-dot dot-a"></span><span class="person-name-a">Beatrix</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-5-0-a" data-order="0" data-mult="1.0">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-5-0-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-5-0-a" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-5-1-a" data-order="1" data-mult="1.6">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-5-1-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">15 min @ tempo pace</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-5-1-a" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-5-2-a" data-order="2" data-mult="1.3">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-5-2-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-5-2-a" step="0.1" min="0" value="9">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+        <section class="person-section person-b">
+          <h4 class="person-heading"><span class="name-dot dot-b"></span><span class="person-name-b">Julian</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-5-0-b" data-order="0" data-mult="1.0">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-5-0-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-5-0-b" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-5-1-b" data-order="1" data-mult="1.6">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-5-1-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">15 min @ tempo pace</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-5-1-b" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-5-2-b" data-order="2" data-mult="1.3">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-5-2-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-5-2-b" step="0.1" min="0" value="9">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+      </div>
+    </details>
+    <details class="week " data-week="6" data-order="5" data-runs="3" data-km="22.0">
+      <summary class="week-head">
+        <span class="week-head-left">
+          <span class="week-num"><span class="week-num-label">Week</span><span class="week-num-value">6</span></span>
+          
+        </span>
+        <span class="week-meta-wrap">
+          <span class="chev">▸</span>
+        </span>
+      </summary>
+      <div class="person-sections">
+        <section class="person-section person-a">
+          <h4 class="person-heading"><span class="name-dot dot-a"></span><span class="person-name-a">Beatrix</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-6-0-a" data-order="0" data-mult="1.0">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-6-0-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-6-0-a" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-6-1-a" data-order="1" data-mult="1.6">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-6-1-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">15 min @ tempo pace</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-6-1-a" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-6-2-a" data-order="2" data-mult="1.3">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-6-2-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-6-2-a" step="0.1" min="0" value="9">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+        <section class="person-section person-b">
+          <h4 class="person-heading"><span class="name-dot dot-b"></span><span class="person-name-b">Julian</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-6-0-b" data-order="0" data-mult="1.0">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-6-0-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-6-0-b" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-6-1-b" data-order="1" data-mult="1.6">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-6-1-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">15 min @ tempo pace</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-6-1-b" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-6-2-b" data-order="2" data-mult="1.3">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-6-2-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-6-2-b" step="0.1" min="0" value="9">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+      </div>
+    </details>
+    <details class="week " data-week="7" data-order="6" data-runs="3" data-km="22.5">
+      <summary class="week-head">
+        <span class="week-head-left">
+          <span class="week-num"><span class="week-num-label">Week</span><span class="week-num-value">7</span></span>
+          
+        </span>
+        <span class="week-meta-wrap">
+          <span class="chev">▸</span>
+        </span>
+      </summary>
+      <div class="person-sections">
+        <section class="person-section person-a">
+          <h4 class="person-heading"><span class="name-dot dot-a"></span><span class="person-name-a">Beatrix</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-7-0-a" data-order="0" data-mult="1.0">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-7-0-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-7-0-a" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-7-1-a" data-order="1" data-mult="1.6">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-7-1-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">20 min tempo</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-7-1-a" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-7-2-a" data-order="2" data-mult="1.3">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-7-2-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-7-2-a" step="0.1" min="0" value="9.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+        <section class="person-section person-b">
+          <h4 class="person-heading"><span class="name-dot dot-b"></span><span class="person-name-b">Julian</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-7-0-b" data-order="0" data-mult="1.0">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-7-0-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-7-0-b" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-7-1-b" data-order="1" data-mult="1.6">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-7-1-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">20 min tempo</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-7-1-b" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-7-2-b" data-order="2" data-mult="1.3">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-7-2-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-7-2-b" step="0.1" min="0" value="9.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+      </div>
+    </details>
+    <details class="week " data-week="8" data-order="7" data-runs="3" data-km="22.5">
+      <summary class="week-head">
+        <span class="week-head-left">
+          <span class="week-num"><span class="week-num-label">Week</span><span class="week-num-value">8</span></span>
+          
+        </span>
+        <span class="week-meta-wrap">
+          <span class="chev">▸</span>
+        </span>
+      </summary>
+      <div class="person-sections">
+        <section class="person-section person-a">
+          <h4 class="person-heading"><span class="name-dot dot-a"></span><span class="person-name-a">Beatrix</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-8-0-a" data-order="0" data-mult="1.0">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-8-0-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-8-0-a" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-8-1-a" data-order="1" data-mult="1.6">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-8-1-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">20 min tempo</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-8-1-a" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-8-2-a" data-order="2" data-mult="1.3">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-8-2-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-8-2-a" step="0.1" min="0" value="9.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+        <section class="person-section person-b">
+          <h4 class="person-heading"><span class="name-dot dot-b"></span><span class="person-name-b">Julian</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-8-0-b" data-order="0" data-mult="1.0">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-8-0-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-8-0-b" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-8-1-b" data-order="1" data-mult="1.6">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-8-1-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">20 min tempo</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-8-1-b" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-8-2-b" data-order="2" data-mult="1.3">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-8-2-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-8-2-b" step="0.1" min="0" value="9.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+      </div>
+    </details>
+    <details class="week " data-week="9" data-order="8" data-runs="3" data-km="24.5">
+      <summary class="week-head">
+        <span class="week-head-left">
+          <span class="week-num"><span class="week-num-label">Week</span><span class="week-num-value">9</span></span>
+          
+        </span>
+        <span class="week-meta-wrap">
+          <span class="chev">▸</span>
+        </span>
+      </summary>
+      <div class="person-sections">
+        <section class="person-section person-a">
+          <h4 class="person-heading"><span class="name-dot dot-a"></span><span class="person-name-a">Beatrix</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-9-0-a" data-order="0" data-mult="1.0">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-9-0-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-9-0-a" step="0.1" min="0" value="7">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-9-1-a" data-order="1" data-mult="1.6">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-9-1-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">20 min tempo</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-9-1-a" step="0.1" min="0" value="7">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-9-2-a" data-order="2" data-mult="1.3">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-9-2-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-9-2-a" step="0.1" min="0" value="10.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+        <section class="person-section person-b">
+          <h4 class="person-heading"><span class="name-dot dot-b"></span><span class="person-name-b">Julian</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-9-0-b" data-order="0" data-mult="1.0">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-9-0-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-9-0-b" step="0.1" min="0" value="7">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-9-1-b" data-order="1" data-mult="1.6">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-9-1-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">20 min tempo</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-9-1-b" step="0.1" min="0" value="7">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-9-2-b" data-order="2" data-mult="1.3">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-9-2-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-9-2-b" step="0.1" min="0" value="10.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+      </div>
+    </details>
+    <details class="week " data-week="10" data-order="9" data-runs="3" data-km="24.5">
+      <summary class="week-head">
+        <span class="week-head-left">
+          <span class="week-num"><span class="week-num-label">Week</span><span class="week-num-value">10</span></span>
+          
+        </span>
+        <span class="week-meta-wrap">
+          <span class="chev">▸</span>
+        </span>
+      </summary>
+      <div class="person-sections">
+        <section class="person-section person-a">
+          <h4 class="person-heading"><span class="name-dot dot-a"></span><span class="person-name-a">Beatrix</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-10-0-a" data-order="0" data-mult="1.0">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-10-0-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-10-0-a" step="0.1" min="0" value="7">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-10-1-a" data-order="1" data-mult="1.6">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-10-1-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">20 min tempo</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-10-1-a" step="0.1" min="0" value="7">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-10-2-a" data-order="2" data-mult="1.3">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-10-2-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-10-2-a" step="0.1" min="0" value="10.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+        <section class="person-section person-b">
+          <h4 class="person-heading"><span class="name-dot dot-b"></span><span class="person-name-b">Julian</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-10-0-b" data-order="0" data-mult="1.0">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-10-0-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-10-0-b" step="0.1" min="0" value="7">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-10-1-b" data-order="1" data-mult="1.6">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-10-1-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">20 min tempo</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-10-1-b" step="0.1" min="0" value="7">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-10-2-b" data-order="2" data-mult="1.3">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-10-2-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-10-2-b" step="0.1" min="0" value="10.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+      </div>
+    </details>
+    <details class="week " data-week="11" data-order="10" data-runs="3" data-km="25.5">
+      <summary class="week-head">
+        <span class="week-head-left">
+          <span class="week-num"><span class="week-num-label">Week</span><span class="week-num-value">11</span></span>
+          
+        </span>
+        <span class="week-meta-wrap">
+          <span class="chev">▸</span>
+        </span>
+      </summary>
+      <div class="person-sections">
+        <section class="person-section person-a">
+          <h4 class="person-heading"><span class="name-dot dot-a"></span><span class="person-name-a">Beatrix</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-11-0-a" data-order="0" data-mult="1.0">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-11-0-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-11-0-a" step="0.1" min="0" value="7">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-11-1-a" data-order="1" data-mult="1.6">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-11-1-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">25 min tempo</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-11-1-a" step="0.1" min="0" value="7">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-11-2-a" data-order="2" data-mult="1.3">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-11-2-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-11-2-a" step="0.1" min="0" value="11.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+        <section class="person-section person-b">
+          <h4 class="person-heading"><span class="name-dot dot-b"></span><span class="person-name-b">Julian</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-11-0-b" data-order="0" data-mult="1.0">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-11-0-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-11-0-b" step="0.1" min="0" value="7">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-11-1-b" data-order="1" data-mult="1.6">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-11-1-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">25 min tempo</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-11-1-b" step="0.1" min="0" value="7">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-11-2-b" data-order="2" data-mult="1.3">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-11-2-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-11-2-b" step="0.1" min="0" value="11.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+      </div>
+    </details>
+    <details class="week " data-week="12" data-order="11" data-runs="3" data-km="25.5">
+      <summary class="week-head">
+        <span class="week-head-left">
+          <span class="week-num"><span class="week-num-label">Week</span><span class="week-num-value">12</span></span>
+          
+        </span>
+        <span class="week-meta-wrap">
+          <span class="chev">▸</span>
+        </span>
+      </summary>
+      <div class="person-sections">
+        <section class="person-section person-a">
+          <h4 class="person-heading"><span class="name-dot dot-a"></span><span class="person-name-a">Beatrix</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-12-0-a" data-order="0" data-mult="1.0">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-12-0-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-12-0-a" step="0.1" min="0" value="7">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-12-1-a" data-order="1" data-mult="1.6">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-12-1-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">25 min tempo</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-12-1-a" step="0.1" min="0" value="7">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-12-2-a" data-order="2" data-mult="1.3">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-12-2-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-12-2-a" step="0.1" min="0" value="11.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+        <section class="person-section person-b">
+          <h4 class="person-heading"><span class="name-dot dot-b"></span><span class="person-name-b">Julian</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-12-0-b" data-order="0" data-mult="1.0">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-12-0-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-12-0-b" step="0.1" min="0" value="7">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-12-1-b" data-order="1" data-mult="1.6">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-12-1-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">25 min tempo</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-12-1-b" step="0.1" min="0" value="7">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-12-2-b" data-order="2" data-mult="1.3">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-12-2-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-12-2-b" step="0.1" min="0" value="11.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+      </div>
+    </details>
+    <details class="week " data-week="13" data-order="12" data-runs="3" data-km="28">
+      <summary class="week-head">
+        <span class="week-head-left">
+          <span class="week-num"><span class="week-num-label">Week</span><span class="week-num-value">13</span></span>
+          
+        </span>
+        <span class="week-meta-wrap">
+          <span class="chev">▸</span>
+        </span>
+      </summary>
+      <div class="person-sections">
+        <section class="person-section person-a">
+          <h4 class="person-heading"><span class="name-dot dot-a"></span><span class="person-name-a">Beatrix</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-13-0-a" data-order="0" data-mult="1.0">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-13-0-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-13-0-a" step="0.1" min="0" value="8">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-13-1-a" data-order="1" data-mult="1.6">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-13-1-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">25 min tempo</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-13-1-a" step="0.1" min="0" value="8">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-13-2-a" data-order="2" data-mult="1.3">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-13-2-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-13-2-a" step="0.1" min="0" value="12">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+        <section class="person-section person-b">
+          <h4 class="person-heading"><span class="name-dot dot-b"></span><span class="person-name-b">Julian</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-13-0-b" data-order="0" data-mult="1.0">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-13-0-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-13-0-b" step="0.1" min="0" value="8">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-13-1-b" data-order="1" data-mult="1.6">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-13-1-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">25 min tempo</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-13-1-b" step="0.1" min="0" value="8">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-13-2-b" data-order="2" data-mult="1.3">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-13-2-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-13-2-b" step="0.1" min="0" value="12">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+      </div>
+    </details>
+    <details class="week " data-week="14" data-order="13" data-runs="3" data-km="28">
+      <summary class="week-head">
+        <span class="week-head-left">
+          <span class="week-num"><span class="week-num-label">Week</span><span class="week-num-value">14</span></span>
+          
+        </span>
+        <span class="week-meta-wrap">
+          <span class="chev">▸</span>
+        </span>
+      </summary>
+      <div class="person-sections">
+        <section class="person-section person-a">
+          <h4 class="person-heading"><span class="name-dot dot-a"></span><span class="person-name-a">Beatrix</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-14-0-a" data-order="0" data-mult="1.0">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-14-0-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-14-0-a" step="0.1" min="0" value="8">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-14-1-a" data-order="1" data-mult="1.6">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-14-1-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">25 min tempo</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-14-1-a" step="0.1" min="0" value="8">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-14-2-a" data-order="2" data-mult="1.3">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-14-2-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-14-2-a" step="0.1" min="0" value="12">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+        <section class="person-section person-b">
+          <h4 class="person-heading"><span class="name-dot dot-b"></span><span class="person-name-b">Julian</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-14-0-b" data-order="0" data-mult="1.0">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-14-0-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-14-0-b" step="0.1" min="0" value="8">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-14-1-b" data-order="1" data-mult="1.6">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-14-1-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">25 min tempo</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-14-1-b" step="0.1" min="0" value="8">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-14-2-b" data-order="2" data-mult="1.3">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-14-2-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-14-2-b" step="0.1" min="0" value="12">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+      </div>
+    </details>
+    <details class="week " data-week="15" data-order="14" data-runs="3" data-km="29">
+      <summary class="week-head">
+        <span class="week-head-left">
+          <span class="week-num"><span class="week-num-label">Week</span><span class="week-num-value">15</span></span>
+          
+        </span>
+        <span class="week-meta-wrap">
+          <span class="chev">▸</span>
+        </span>
+      </summary>
+      <div class="person-sections">
+        <section class="person-section person-a">
+          <h4 class="person-heading"><span class="name-dot dot-a"></span><span class="person-name-a">Beatrix</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-15-0-a" data-order="0" data-mult="1.0">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-15-0-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-15-0-a" step="0.1" min="0" value="8">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-15-1-a" data-order="1" data-mult="1.6">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-15-1-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">30 min tempo</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-15-1-a" step="0.1" min="0" value="8">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-15-2-a" data-order="2" data-mult="1.3">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-15-2-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-15-2-a" step="0.1" min="0" value="13">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+        <section class="person-section person-b">
+          <h4 class="person-heading"><span class="name-dot dot-b"></span><span class="person-name-b">Julian</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-15-0-b" data-order="0" data-mult="1.0">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-15-0-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-15-0-b" step="0.1" min="0" value="8">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-15-1-b" data-order="1" data-mult="1.6">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-15-1-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">30 min tempo</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-15-1-b" step="0.1" min="0" value="8">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-15-2-b" data-order="2" data-mult="1.3">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-15-2-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-15-2-b" step="0.1" min="0" value="13">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+      </div>
+    </details>
+    <details class="week cutback" data-week="16" data-order="15" data-runs="3" data-km="22.5">
+      <summary class="week-head">
+        <span class="week-head-left">
+          <span class="week-num"><span class="week-num-label">Week</span><span class="week-num-value">16</span></span>
+          <span class="week-tag ">Cutback</span>
+        </span>
+        <span class="week-meta-wrap">
+          <span class="chev">▸</span>
+        </span>
+      </summary>
+      <div class="person-sections">
+        <section class="person-section person-a">
+          <h4 class="person-heading"><span class="name-dot dot-a"></span><span class="person-name-a">Beatrix</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-16-0-a" data-order="0" data-mult="1.0">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-16-0-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-16-0-a" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-16-1-a" data-order="1" data-mult="1.6">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-16-1-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">Easy w/ strides</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-16-1-a" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-16-2-a" data-order="2" data-mult="1.3">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-16-2-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-16-2-a" step="0.1" min="0" value="9.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+        <section class="person-section person-b">
+          <h4 class="person-heading"><span class="name-dot dot-b"></span><span class="person-name-b">Julian</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-16-0-b" data-order="0" data-mult="1.0">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-16-0-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-16-0-b" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-16-1-b" data-order="1" data-mult="1.6">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-16-1-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">Easy w/ strides</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-16-1-b" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-16-2-b" data-order="2" data-mult="1.3">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-16-2-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-16-2-b" step="0.1" min="0" value="9.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+      </div>
+    </details>
+    <details class="week " data-week="17" data-order="16" data-runs="3" data-km="27.0">
+      <summary class="week-head">
+        <span class="week-head-left">
+          <span class="week-num"><span class="week-num-label">Week</span><span class="week-num-value">17</span></span>
+          
+        </span>
+        <span class="week-meta-wrap">
+          <span class="chev">▸</span>
+        </span>
+      </summary>
+      <div class="person-sections">
+        <section class="person-section person-a">
+          <h4 class="person-heading"><span class="name-dot dot-a"></span><span class="person-name-a">Beatrix</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-17-0-a" data-order="0" data-mult="1.0">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-17-0-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-17-0-a" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-17-1-a" data-order="1" data-mult="1.6">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-17-1-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">30 min tempo</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-17-1-a" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-17-2-a" data-order="2" data-mult="1.3">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-17-2-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-17-2-a" step="0.1" min="0" value="14">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+        <section class="person-section person-b">
+          <h4 class="person-heading"><span class="name-dot dot-b"></span><span class="person-name-b">Julian</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-17-0-b" data-order="0" data-mult="1.0">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-17-0-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-17-0-b" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-17-1-b" data-order="1" data-mult="1.6">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-17-1-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">30 min tempo</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-17-1-b" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-17-2-b" data-order="2" data-mult="1.3">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-17-2-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-17-2-b" step="0.1" min="0" value="14">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+      </div>
+    </details>
+    <details class="week " data-week="18" data-order="17" data-runs="3" data-km="29.0">
+      <summary class="week-head">
+        <span class="week-head-left">
+          <span class="week-num"><span class="week-num-label">Week</span><span class="week-num-value">18</span></span>
+          
+        </span>
+        <span class="week-meta-wrap">
+          <span class="chev">▸</span>
+        </span>
+      </summary>
+      <div class="person-sections">
+        <section class="person-section person-a">
+          <h4 class="person-heading"><span class="name-dot dot-a"></span><span class="person-name-a">Beatrix</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-18-0-a" data-order="0" data-mult="1.0">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-18-0-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-18-0-a" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-18-1-a" data-order="1" data-mult="1.8">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-18-1-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Speed</span>
+            <div class="run-detail">6×3 min @ 5k pace</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-18-1-a" step="0.1" min="0" value="8">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-18-2-a" data-order="2" data-mult="1.3">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-18-2-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-18-2-a" step="0.1" min="0" value="14.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+        <section class="person-section person-b">
+          <h4 class="person-heading"><span class="name-dot dot-b"></span><span class="person-name-b">Julian</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-18-0-b" data-order="0" data-mult="1.0">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-18-0-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-18-0-b" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-18-1-b" data-order="1" data-mult="1.8">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-18-1-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Speed</span>
+            <div class="run-detail">6×3 min @ 5k pace</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-18-1-b" step="0.1" min="0" value="8">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-18-2-b" data-order="2" data-mult="1.3">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-18-2-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-18-2-b" step="0.1" min="0" value="14.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+      </div>
+    </details>
+    <details class="week " data-week="19" data-order="18" data-runs="3" data-km="30">
+      <summary class="week-head">
+        <span class="week-head-left">
+          <span class="week-num"><span class="week-num-label">Week</span><span class="week-num-value">19</span></span>
+          
+        </span>
+        <span class="week-meta-wrap">
+          <span class="chev">▸</span>
+        </span>
+      </summary>
+      <div class="person-sections">
+        <section class="person-section person-a">
+          <h4 class="person-heading"><span class="name-dot dot-a"></span><span class="person-name-a">Beatrix</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-19-0-a" data-order="0" data-mult="1.0">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-19-0-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-19-0-a" step="0.1" min="0" value="7">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-19-1-a" data-order="1" data-mult="1.6">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-19-1-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">30 min tempo</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-19-1-a" step="0.1" min="0" value="8">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-19-2-a" data-order="2" data-mult="1.3">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-19-2-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-19-2-a" step="0.1" min="0" value="15">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+        <section class="person-section person-b">
+          <h4 class="person-heading"><span class="name-dot dot-b"></span><span class="person-name-b">Julian</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-19-0-b" data-order="0" data-mult="1.0">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-19-0-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-19-0-b" step="0.1" min="0" value="7">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-19-1-b" data-order="1" data-mult="1.6">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-19-1-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">30 min tempo</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-19-1-b" step="0.1" min="0" value="8">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-19-2-b" data-order="2" data-mult="1.3">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-19-2-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-19-2-b" step="0.1" min="0" value="15">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+      </div>
+    </details>
+    <details class="week cutback" data-week="20" data-order="19" data-runs="3" data-km="24.5">
+      <summary class="week-head">
+        <span class="week-head-left">
+          <span class="week-num"><span class="week-num-label">Week</span><span class="week-num-value">20</span></span>
+          <span class="week-tag ">Cutback</span>
+        </span>
+        <span class="week-meta-wrap">
+          <span class="chev">▸</span>
+        </span>
+      </summary>
+      <div class="person-sections">
+        <section class="person-section person-a">
+          <h4 class="person-heading"><span class="name-dot dot-a"></span><span class="person-name-a">Beatrix</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-20-0-a" data-order="0" data-mult="1.0">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-20-0-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-20-0-a" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-20-1-a" data-order="1" data-mult="1.6">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-20-1-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">Easy (cutback)</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-20-1-a" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-20-2-a" data-order="2" data-mult="1.3">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-20-2-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-20-2-a" step="0.1" min="0" value="11.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+        <section class="person-section person-b">
+          <h4 class="person-heading"><span class="name-dot dot-b"></span><span class="person-name-b">Julian</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-20-0-b" data-order="0" data-mult="1.0">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-20-0-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-20-0-b" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-20-1-b" data-order="1" data-mult="1.6">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-20-1-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">Easy (cutback)</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-20-1-b" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-20-2-b" data-order="2" data-mult="1.3">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-20-2-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-20-2-b" step="0.1" min="0" value="11.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+      </div>
+    </details>
+    <details class="week " data-week="21" data-order="20" data-runs="3" data-km="32">
+      <summary class="week-head">
+        <span class="week-head-left">
+          <span class="week-num"><span class="week-num-label">Week</span><span class="week-num-value">21</span></span>
+          
+        </span>
+        <span class="week-meta-wrap">
+          <span class="chev">▸</span>
+        </span>
+      </summary>
+      <div class="person-sections">
+        <section class="person-section person-a">
+          <h4 class="person-heading"><span class="name-dot dot-a"></span><span class="person-name-a">Beatrix</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-21-0-a" data-order="0" data-mult="1.0">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-21-0-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-21-0-a" step="0.1" min="0" value="8">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-21-1-a" data-order="1" data-mult="1.8">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-21-1-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Speed</span>
+            <div class="run-detail">8×3 min @ 5k pace</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-21-1-a" step="0.1" min="0" value="8">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-21-2-a" data-order="2" data-mult="1.3">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-21-2-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-21-2-a" step="0.1" min="0" value="16">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+        <section class="person-section person-b">
+          <h4 class="person-heading"><span class="name-dot dot-b"></span><span class="person-name-b">Julian</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-21-0-b" data-order="0" data-mult="1.0">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-21-0-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-21-0-b" step="0.1" min="0" value="8">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-21-1-b" data-order="1" data-mult="1.8">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-21-1-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Speed</span>
+            <div class="run-detail">8×3 min @ 5k pace</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-21-1-b" step="0.1" min="0" value="8">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-21-2-b" data-order="2" data-mult="1.3">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-21-2-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-21-2-b" step="0.1" min="0" value="16">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+      </div>
+    </details>
+    <details class="week " data-week="22" data-order="21" data-runs="3" data-km="34">
+      <summary class="week-head">
+        <span class="week-head-left">
+          <span class="week-num"><span class="week-num-label">Week</span><span class="week-num-value">22</span></span>
+          
+        </span>
+        <span class="week-meta-wrap">
+          <span class="chev">▸</span>
+        </span>
+      </summary>
+      <div class="person-sections">
+        <section class="person-section person-a">
+          <h4 class="person-heading"><span class="name-dot dot-a"></span><span class="person-name-a">Beatrix</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-22-0-a" data-order="0" data-mult="1.0">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-22-0-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-22-0-a" step="0.1" min="0" value="8">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-22-1-a" data-order="1" data-mult="1.6">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-22-1-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">35 min tempo</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-22-1-a" step="0.1" min="0" value="9">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-22-2-a" data-order="2" data-mult="1.3">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-22-2-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-22-2-a" step="0.1" min="0" value="17">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+        <section class="person-section person-b">
+          <h4 class="person-heading"><span class="name-dot dot-b"></span><span class="person-name-b">Julian</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-22-0-b" data-order="0" data-mult="1.0">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-22-0-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-22-0-b" step="0.1" min="0" value="8">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-22-1-b" data-order="1" data-mult="1.6">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-22-1-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">35 min tempo</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-22-1-b" step="0.1" min="0" value="9">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-22-2-b" data-order="2" data-mult="1.3">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-22-2-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-22-2-b" step="0.1" min="0" value="17">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+      </div>
+    </details>
+    <details class="week cutback" data-week="23" data-order="22" data-runs="3" data-km="26.0">
+      <summary class="week-head">
+        <span class="week-head-left">
+          <span class="week-num"><span class="week-num-label">Week</span><span class="week-num-value">23</span></span>
+          <span class="week-tag ">Cutback</span>
+        </span>
+        <span class="week-meta-wrap">
+          <span class="chev">▸</span>
+        </span>
+      </summary>
+      <div class="person-sections">
+        <section class="person-section person-a">
+          <h4 class="person-heading"><span class="name-dot dot-a"></span><span class="person-name-a">Beatrix</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-23-0-a" data-order="0" data-mult="1.0">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-23-0-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-23-0-a" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-23-1-a" data-order="1" data-mult="1.6">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-23-1-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">Easy (cutback)</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-23-1-a" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-23-2-a" data-order="2" data-mult="1.3">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-23-2-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-23-2-a" step="0.1" min="0" value="13">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+        <section class="person-section person-b">
+          <h4 class="person-heading"><span class="name-dot dot-b"></span><span class="person-name-b">Julian</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-23-0-b" data-order="0" data-mult="1.0">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-23-0-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-23-0-b" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-23-1-b" data-order="1" data-mult="1.6">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-23-1-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">Easy (cutback)</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-23-1-b" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-23-2-b" data-order="2" data-mult="1.3">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-23-2-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-23-2-b" step="0.1" min="0" value="13">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+      </div>
+    </details>
+    <details class="week " data-week="24" data-order="23" data-runs="3" data-km="35.0">
+      <summary class="week-head">
+        <span class="week-head-left">
+          <span class="week-num"><span class="week-num-label">Week</span><span class="week-num-value">24</span></span>
+          
+        </span>
+        <span class="week-meta-wrap">
+          <span class="chev">▸</span>
+        </span>
+      </summary>
+      <div class="person-sections">
+        <section class="person-section person-a">
+          <h4 class="person-heading"><span class="name-dot dot-a"></span><span class="person-name-a">Beatrix</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-24-0-a" data-order="0" data-mult="1.0">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-24-0-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-24-0-a" step="0.1" min="0" value="8">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-24-1-a" data-order="1" data-mult="1.6">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-24-1-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">5 km @ race pace</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-24-1-a" step="0.1" min="0" value="9.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-24-2-a" data-order="2" data-mult="1.3">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-24-2-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-24-2-a" step="0.1" min="0" value="17.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+        <section class="person-section person-b">
+          <h4 class="person-heading"><span class="name-dot dot-b"></span><span class="person-name-b">Julian</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-24-0-b" data-order="0" data-mult="1.0">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-24-0-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-24-0-b" step="0.1" min="0" value="8">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-24-1-b" data-order="1" data-mult="1.6">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-24-1-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">5 km @ race pace</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-24-1-b" step="0.1" min="0" value="9.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-24-2-b" data-order="2" data-mult="1.3">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-24-2-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-24-2-b" step="0.1" min="0" value="17.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+      </div>
+    </details>
+    <details class="week " data-week="25" data-order="24" data-runs="3" data-km="35.5">
+      <summary class="week-head">
+        <span class="week-head-left">
+          <span class="week-num"><span class="week-num-label">Week</span><span class="week-num-value">25</span></span>
+          
+        </span>
+        <span class="week-meta-wrap">
+          <span class="chev">▸</span>
+        </span>
+      </summary>
+      <div class="person-sections">
+        <section class="person-section person-a">
+          <h4 class="person-heading"><span class="name-dot dot-a"></span><span class="person-name-a">Beatrix</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-25-0-a" data-order="0" data-mult="1.0">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-25-0-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-25-0-a" step="0.1" min="0" value="8">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-25-1-a" data-order="1" data-mult="1.6">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-25-1-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">35–40 min tempo</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-25-1-a" step="0.1" min="0" value="9">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-25-2-a" data-order="2" data-mult="1.3">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-25-2-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-25-2-a" step="0.1" min="0" value="18.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+        <section class="person-section person-b">
+          <h4 class="person-heading"><span class="name-dot dot-b"></span><span class="person-name-b">Julian</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-25-0-b" data-order="0" data-mult="1.0">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-25-0-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-25-0-b" step="0.1" min="0" value="8">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-25-1-b" data-order="1" data-mult="1.6">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-25-1-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">35–40 min tempo</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-25-1-b" step="0.1" min="0" value="9">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-25-2-b" data-order="2" data-mult="1.3">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-25-2-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-25-2-b" step="0.1" min="0" value="18.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+      </div>
+    </details>
+    <details class="week cutback" data-week="26" data-order="25" data-runs="3" data-km="26.0">
+      <summary class="week-head">
+        <span class="week-head-left">
+          <span class="week-num"><span class="week-num-label">Week</span><span class="week-num-value">26</span></span>
+          <span class="week-tag ">Cutback</span>
+        </span>
+        <span class="week-meta-wrap">
+          <span class="chev">▸</span>
+        </span>
+      </summary>
+      <div class="person-sections">
+        <section class="person-section person-a">
+          <h4 class="person-heading"><span class="name-dot dot-a"></span><span class="person-name-a">Beatrix</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-26-0-a" data-order="0" data-mult="1.0">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-26-0-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-26-0-a" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-26-1-a" data-order="1" data-mult="1.6">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-26-1-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">Easy (cutback)</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-26-1-a" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-26-2-a" data-order="2" data-mult="1.3">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-26-2-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-26-2-a" step="0.1" min="0" value="13">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+        <section class="person-section person-b">
+          <h4 class="person-heading"><span class="name-dot dot-b"></span><span class="person-name-b">Julian</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-26-0-b" data-order="0" data-mult="1.0">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-26-0-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-26-0-b" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-26-1-b" data-order="1" data-mult="1.6">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-26-1-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">Easy (cutback)</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-26-1-b" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-26-2-b" data-order="2" data-mult="1.3">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-26-2-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-26-2-b" step="0.1" min="0" value="13">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+      </div>
+    </details>
+    <details class="week peak" data-week="27" data-order="26" data-runs="3" data-km="35">
+      <summary class="week-head">
+        <span class="week-head-left">
+          <span class="week-num"><span class="week-num-label">Week</span><span class="week-num-value">27</span></span>
+          <span class="week-tag rust">Peak</span>
+        </span>
+        <span class="week-meta-wrap">
+          <span class="chev">▸</span>
+        </span>
+      </summary>
+      <div class="person-sections">
+        <section class="person-section person-a">
+          <h4 class="person-heading"><span class="name-dot dot-a"></span><span class="person-name-a">Beatrix</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-27-0-a" data-order="0" data-mult="1.0">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-27-0-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-27-0-a" step="0.1" min="0" value="8">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-27-1-a" data-order="1" data-mult="1.6">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-27-1-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">6.5 km @ race pace</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-27-1-a" step="0.1" min="0" value="8">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-27-2-a" data-order="2" data-mult="1.3">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-27-2-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            <div class="run-detail">Peak long run</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-27-2-a" step="0.1" min="0" value="19">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+        <section class="person-section person-b">
+          <h4 class="person-heading"><span class="name-dot dot-b"></span><span class="person-name-b">Julian</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-27-0-b" data-order="0" data-mult="1.0">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-27-0-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-27-0-b" step="0.1" min="0" value="8">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-27-1-b" data-order="1" data-mult="1.6">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-27-1-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">6.5 km @ race pace</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-27-1-b" step="0.1" min="0" value="8">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-27-2-b" data-order="2" data-mult="1.3">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-27-2-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            <div class="run-detail">Peak long run</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-27-2-b" step="0.1" min="0" value="19">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+      </div>
+    </details>
+    <details class="week " data-week="28" data-order="27" data-runs="3" data-km="26.0">
+      <summary class="week-head">
+        <span class="week-head-left">
+          <span class="week-num"><span class="week-num-label">Week</span><span class="week-num-value">28</span></span>
+          <span class="week-tag ">Taper</span>
+        </span>
+        <span class="week-meta-wrap">
+          <span class="chev">▸</span>
+        </span>
+      </summary>
+      <div class="person-sections">
+        <section class="person-section person-a">
+          <h4 class="person-heading"><span class="name-dot dot-a"></span><span class="person-name-a">Beatrix</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-28-0-a" data-order="0" data-mult="1.0">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-28-0-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-28-0-a" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-28-1-a" data-order="1" data-mult="1.6">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-28-1-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">Easy w/ strides</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-28-1-a" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-28-2-a" data-order="2" data-mult="1.3">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-28-2-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-28-2-a" step="0.1" min="0" value="13">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+        <section class="person-section person-b">
+          <h4 class="person-heading"><span class="name-dot dot-b"></span><span class="person-name-b">Julian</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-28-0-b" data-order="0" data-mult="1.0">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-28-0-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-28-0-b" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-28-1-b" data-order="1" data-mult="1.6">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-28-1-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">Easy w/ strides</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-28-1-b" step="0.1" min="0" value="6.5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-28-2-b" data-order="2" data-mult="1.3">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-28-2-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-28-2-b" step="0.1" min="0" value="13">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+      </div>
+    </details>
+    <details class="week " data-week="29" data-order="28" data-runs="3" data-km="18">
+      <summary class="week-head">
+        <span class="week-head-left">
+          <span class="week-num"><span class="week-num-label">Week</span><span class="week-num-value">29</span></span>
+          <span class="week-tag ">Taper</span>
+        </span>
+        <span class="week-meta-wrap">
+          <span class="chev">▸</span>
+        </span>
+      </summary>
+      <div class="person-sections">
+        <section class="person-section person-a">
+          <h4 class="person-heading"><span class="name-dot dot-a"></span><span class="person-name-a">Beatrix</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-29-0-a" data-order="0" data-mult="1.0">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-29-0-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-29-0-a" step="0.1" min="0" value="5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-29-1-a" data-order="1" data-mult="1.6">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-29-1-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">4×1 min strides</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-29-1-a" step="0.1" min="0" value="5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-29-2-a" data-order="2" data-mult="1.3">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-29-2-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-29-2-a" step="0.1" min="0" value="8">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+        <section class="person-section person-b">
+          <h4 class="person-heading"><span class="name-dot dot-b"></span><span class="person-name-b">Julian</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-29-0-b" data-order="0" data-mult="1.0">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-29-0-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-29-0-b" step="0.1" min="0" value="5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-29-1-b" data-order="1" data-mult="1.6">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-29-1-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Tempo</span>
+            <div class="run-detail">4×1 min strides</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-29-1-b" step="0.1" min="0" value="5">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-29-2-b" data-order="2" data-mult="1.3">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-29-2-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Long run</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-29-2-b" step="0.1" min="0" value="8">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+      </div>
+    </details>
+    <details class="week race-week" data-week="30" data-order="29" data-runs="3" data-km="25.1">
+      <summary class="week-head">
+        <span class="week-head-left">
+          <span class="week-num"><span class="week-num-label">Week</span><span class="week-num-value">30</span></span>
+          <span class="week-tag rust">Race week</span>
+        </span>
+        <span class="week-meta-wrap">
+          <span class="chev">▸</span>
+        </span>
+      </summary>
+      <div class="person-sections">
+        <section class="person-section person-a">
+          <h4 class="person-heading"><span class="name-dot dot-a"></span><span class="person-name-a">Beatrix</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-30-0-a" data-order="0" data-mult="1.0">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-30-0-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-30-0-a" step="0.1" min="0" value="4">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-30-1-a" data-order="1" data-mult="1.0">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-30-1-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Shakeout</span>
+            <div class="run-detail">Rest or 20 min jog</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-30-1-a" step="0.1" min="0" value="">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-30-2-a" data-order="2" data-mult="3.0">
+          <label class="tick tick-a"><input type="checkbox" class="run-check check-a" data-id="1-30-2-a"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">RACE DAY</span>
+            <div class="run-detail">21.1 km</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-a" data-id="1-30-2-a" step="0.1" min="0" value="21.1">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+        <section class="person-section person-b">
+          <h4 class="person-heading"><span class="name-dot dot-b"></span><span class="person-name-b">Julian</span></h4>
+          <div class="runs">
+        <div class="run" data-id="1-30-0-b" data-order="0" data-mult="1.0">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-30-0-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Easy</span>
+            
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-30-0-b" step="0.1" min="0" value="4">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-30-1-b" data-order="1" data-mult="1.0">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-30-1-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">Shakeout</span>
+            <div class="run-detail">Rest or 20 min jog</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-30-1-b" step="0.1" min="0" value="">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+        <div class="run" data-id="1-30-2-b" data-order="2" data-mult="3.0">
+          <label class="tick tick-b"><input type="checkbox" class="run-check check-b" data-id="1-30-2-b"><span class="checkbox"></span></label>
+          <span class="run-body">
+            <span class="run-type">RACE DAY</span>
+            <div class="run-detail">21.1 km</div>
+          </span>
+          <span class="dist-field">
+            <input type="number" class="goal-input goal-b" data-id="1-30-2-b" step="0.1" min="0" value="21.1">
+            <span class="dist-unit">km</span>
+          </span>
+        </div>
+          </div>
+        </section>
+      </div>
+    </details>
+      </div>
+    </section>
+
+  <section id="activities">
+    <div class="phase-title">Other activities</div>
+    <div class="activities-card">
+      <div class="activity-sender">
+        <button type="button" class="activity-sender-btn sender-a active" id="activitySenderA"><span class="name-dot dot-a"></span><span class="person-name-a">Beatrix</span></button>
+        <button type="button" class="activity-sender-btn sender-b" id="activitySenderB"><span class="name-dot dot-b"></span><span class="person-name-b">Julian</span></button>
+      </div>
+      <div class="activity-add-row"><select class="activity-select" id="activityType"><option value="hiking">Hiking</option><option value="cycling">Cycling</option><option value="swimming">Swimming</option><option value="strength">Strength training</option><option value="workout">Workout</option></select><input type="number" class="activity-input" id="activityMinutes" min="1" step="1" placeholder="km"><span class="activity-unit" id="activityUnit">km</span><button type="button" class="activity-add-btn" id="addActivity">Add</button></div>
+      <div class="activity-feed">
+        <div class="activity-list" id="activityList"></div>
+      </div>
+      <div class="activity-rate">Points: hiking 0.5/km · cycling 0.4/30 min · swimming 0.6/30 min · strength 0.5/30 min · workout 0.6/30 min</div>
+    </div>
+  </section>
+
+  <details class="run-types-details">
+    <summary class="run-types-title">Understanding the run types<span class="chev">&#9656;</span></summary>
+    <div class="run-types">
+      <div class="run-type-card">
+        <div class="rtc-head"><span class="rtc-name">Easy</span><span class="rtc-mult">×1 pts/km</span></div>
+        <div class="rtc-why">Aerobic base + recovery</div>
+        <div class="rtc-how">The bulk of your mileage. Run at a relaxed, conversational pace — you should be able to talk in full sentences. It builds your aerobic engine and helps your legs absorb harder sessions without piling on fatigue.</div>
+      </div>
+      <div class="run-type-card">
+        <div class="rtc-head"><span class="rtc-name">Long run</span><span class="rtc-mult">×1.3 pts/km</span></div>
+        <div class="rtc-why">Endurance + race-day toughness</div>
+        <div class="rtc-how">Your longest run of the week, run slower than easy pace. It's less about speed and more about time on your feet — teaching your body (and head) to keep going when you're tired, which is exactly what race day demands.</div>
+      </div>
+      <div class="run-type-card">
+        <div class="rtc-head"><span class="rtc-name">Tempo</span><span class="rtc-mult">×1.6 pts/km</span></div>
+        <div class="rtc-why">Raises your threshold</div>
+        <div class="rtc-how">A sustained "comfortably hard" effort — you could only manage a few words at a time. It trains your body to clear lactate faster, so paces that once felt hard start to feel sustainable.</div>
+      </div>
+      <div class="run-type-card">
+        <div class="rtc-head"><span class="rtc-name">Speed</span><span class="rtc-mult">×1.8 pts/km</span></div>
+        <div class="rtc-why">Top-end speed + efficiency</div>
+        <div class="rtc-how">Short, fast repeats (around 5k effort) with easy jog or walk recovery in between. Push genuinely hard on each rep, then let the recovery be properly easy so you can hit the next one well.</div>
+      </div>
+      <div class="run-type-card">
+        <div class="rtc-head"><span class="rtc-name">Shakeout</span><span class="rtc-mult">×1 pts/km</span></div>
+        <div class="rtc-why">Keeps legs loose, adds nothing</div>
+        <div class="rtc-how">A very short, easy jog — usually in race week. The goal isn't fitness, it's just keeping your legs moving and blood flowing without adding any real fatigue before race day.</div>
+      </div>
+      <div class="run-type-card">
+        <div class="rtc-head"><span class="rtc-name">Race day</span><span class="rtc-mult">×3 pts/km</span></div>
+        <div class="rtc-why">The one it's all for</div>
+        <div class="rtc-how">Run it at the pace you've been practising in your tempo and race-pace sessions. Stick to the fuelling and hydration you rehearsed on your long runs — race day is not the day to try something new.</div>
+      </div>
+    </div>
+  </details>
+
+  <footer>
+    <button class="reset-btn" id="resetBtn" artifact-local>Reset all progress</button>
+    <div><button class="logout-link" id="logoutBtn" type="button">Log out</button></div>
+  </footer>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-database-compat.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
