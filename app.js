@@ -9,8 +9,6 @@ const ACTIVITY_RATES = {
 let activityEntries = { a: [], b: [] };
 let activityIdCounter = 0;
 let currentActivityPerson = "a";
-let resetSnapshot = null;
-let resetTimer = null;
 
 function activityLabel(activity){
   return {
@@ -167,9 +165,6 @@ function recompute(){
   ptsA += activityPoints("a");
   ptsB += activityPoints("b");
 
-  updateStatistics({ name: "a", points: ptsA, km: kmA, person: "A" });
-  updateStatistics({ name: "b", points: ptsB, km: kmB, person: "B" });
-
   const pctA = ptsPossibleA ? Math.round((ptsA/ptsPossibleA)*100) : 0;
   const pctB = ptsPossibleB ? Math.round((ptsB/ptsPossibleB)*100) : 0;
   document.getElementById("barA").style.width = pctA + "%";
@@ -181,24 +176,6 @@ function recompute(){
 
   reorderRuns();
   reorderWeeks();
-}
-
-function updateStatistics({ name, points, km, person }){
-  const weekPoints = Array.from(document.querySelectorAll(".week")).map(week => {
-    return Array.from(week.querySelectorAll(".check-" + name)).reduce((total, check) => {
-      if(!check.checked) return total;
-      const run = check.closest(".run");
-      const goal = parseFloat(run.querySelector(".goal-" + name)?.value) || 0;
-      return total + goal * (parseFloat(run.dataset.mult) || 1);
-    }, 0);
-  });
-  const activityMinutes = activityEntries[name].reduce((total, entry) => total + (entry.activity === "hiking" ? 0 : (parseFloat(entry.minutes) || 0)), 0);
-  const average = weekPoints.length ? points / weekPoints.length : 0;
-  const best = weekPoints.length ? Math.max(...weekPoints) : 0;
-  document.getElementById("statKm" + person).textContent = Math.round(km * 10) / 10 + " km";
-  document.getElementById("statMinutes" + person).textContent = Math.round(activityMinutes) + " min";
-  document.getElementById("statAverage" + person).textContent = Math.round(average * 10) / 10;
-  document.getElementById("statBest" + person).textContent = Math.round(best * 10) / 10 + " pts";
 }
 
 function reorderWeeks(){
@@ -418,24 +395,12 @@ document.getElementById("nameB").addEventListener("input", recomputeAndSave);
 
 document.getElementById("resetBtn").addEventListener("click", () => {
   if(!confirm("Reset all progress? This can't be undone.")) return;
-  resetSnapshot = collectData();
   document.querySelectorAll(".run-check").forEach(c => { c.checked = false; });
   activityEntries = { a: [], b: [] };
   renderActivityList();
-  recomputeAndSave();
-  const toast = document.getElementById("undoToast");
-  toast.classList.add("visible");
-  clearTimeout(resetTimer);
-  resetTimer = setTimeout(() => { resetSnapshot = null; toast.classList.remove("visible"); }, 8000);
-});
-
-document.getElementById("undoResetBtn").addEventListener("click", () => {
-  if(!resetSnapshot) return;
-  applyData(resetSnapshot);
-  recomputeAndSave();
-  resetSnapshot = null;
-  clearTimeout(resetTimer);
-  document.getElementById("undoToast").classList.remove("visible");
+  recompute();
+  saveLocal();
+  saveRemote();
 });
 
 // Paint instantly from whatever's cached on this device, then let Firebase take over as the shared source of truth.
