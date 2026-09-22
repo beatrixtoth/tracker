@@ -255,6 +255,7 @@
   }
   .board-send-btn:hover{ filter: brightness(1.06); }
   .board-send-btn:disabled{ opacity:.5; cursor:default; }
+  .board-status{ font-size: 12.5px; color: var(--gold); margin-top: 4px; }
 
   .board-feed{ margin-top: 20px; display:flex; flex-direction:column; gap: 12px; max-height: 520px; overflow-y:auto; }
   .board-empty{ color: var(--text-faint); font-size: 13px; text-align:center; padding: 10px 0; }
@@ -325,6 +326,7 @@
           </div>
           <button type="button" class="board-send-btn" id="boardSendBtn">Post</button>
         </div>
+        <div class="board-status" id="boardStatus" style="display:none;"></div>
       </div>
       <div class="board-feed" id="boardFeed">
         <div class="board-empty">No messages yet — be the first to say something.</div>
@@ -3329,9 +3331,23 @@ document.getElementById("boardImgRemove").addEventListener("click", () => {
 
 document.getElementById("boardSendBtn").addEventListener("click", () => {
   const textEl = document.getElementById("boardText");
+  const statusEl = document.getElementById("boardStatus");
+  const sendBtn = document.getElementById("boardSendBtn");
   const text = textEl.value.trim();
   if(!text && !pendingImage) return;
-  if(!msgsRef){ alert("Message board isn't connected right now — check your connection and try again."); return; }
+
+  function showStatus(msg){
+    if(statusEl){ statusEl.textContent = msg; statusEl.style.display = "block"; }
+  }
+  function hideStatus(){
+    if(statusEl){ statusEl.style.display = "none"; }
+  }
+
+  if(!msgsRef){
+    showStatus("Not connected to Firebase right now — reload the page or check your connection, then try again.");
+    return;
+  }
+
   const nameA = document.getElementById("nameA").value.trim() || "Beatrix";
   const nameB = document.getElementById("nameB").value.trim() || "Julian";
   const payload = {
@@ -3341,10 +3357,24 @@ document.getElementById("boardSendBtn").addEventListener("click", () => {
     image: pendingImage || null,
     ts: Date.now()
   };
-  msgsRef.push(payload).catch(e => console.error("Could not post message:", e));
-  textEl.value = "";
-  pendingImage = null;
-  document.getElementById("boardImgPreviewWrap").style.display = "none";
+
+  sendBtn.disabled = true;
+  hideStatus();
+  msgsRef.push(payload)
+    .then(() => {
+      textEl.value = "";
+      pendingImage = null;
+      document.getElementById("boardImgPreviewWrap").style.display = "none";
+      hideStatus();
+    })
+    .catch(e => {
+      console.error("Could not post message:", e);
+      const reason = (e && e.code === "PERMISSION_DENIED")
+        ? "Permission denied — check that your Realtime Database rules allow writes."
+        : "Couldn't send — check your connection and try again.";
+      showStatus(reason);
+    })
+    .finally(() => { sendBtn.disabled = false; });
 });
 
 function escapeHtml(str){
@@ -3397,6 +3427,11 @@ if(msgsRef){
   }, err => console.error("Could not load messages:", err));
 } else {
   renderBoard();
+  const statusEl = document.getElementById("boardStatus");
+  if(statusEl){
+    statusEl.textContent = "Couldn't connect to the shared message board — check your internet connection and reload the page.";
+    statusEl.style.display = "block";
+  }
 }
 </script>
 </body>
